@@ -425,7 +425,29 @@ print(result.url)
 
 ### Slider
 
-`dstack.controls.Slider`
+```python
+import dstack.controls as ctrl
+import dstack as ds
+import plotly.express as px
+
+
+@ds.cache()
+def get_data():
+    return px.data.gapminder()
+
+
+def output_handler(self: ctrl.Output, year: ctrl.Slider):
+    year = year.values[year.selected]
+    self.data = px.scatter(get_data().query("year==" + str(year)), x="gdpPercap", y="lifeExp",
+                           size="pop", color="country", hover_name="country", log_x=True, size_max=60)
+
+
+app = ds.app(controls=[ctrl.Slider(values=get_data()["year"].unique().tolist(), require_apply=False)],
+             outputs=[ctrl.Output(handler=output_handler)])
+
+result = ds.push('controls/slider', app)
+print(result.url)
+```
 
 <table>
   <thead>
@@ -533,7 +555,26 @@ print(result.url)
 
 ### FileUploader
 
-`dstack.controls.FileUploader`
+```python
+import dstack as ds
+import dstack.controls as ctrl
+import pandas as pd
+
+
+def app_handler(self: ctrl.Output, uploader: ctrl.FileUploader):
+    if len(uploader.uploads) > 0:
+        with uploader.uploads[0].open() as f:
+            self.data = pd.read_csv(f).head(100)
+    else:
+        self.data = ds.md("No file selected")
+
+
+app = ds.app(controls=[ctrl.FileUploader(label="Select a CSV file")],
+             outputs=[ctrl.Output(handler=app_handler)])
+
+url = ds.push("controls/file_uploader", app)
+print(url)
+```
 
 <table>
   <thead>
