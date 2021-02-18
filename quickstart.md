@@ -94,7 +94,7 @@ Now, to learn in more detail about what applications consist of and how to use a
 
 {% page-ref page="concepts/" %}
 
-To see other examples, please check out the [Tutorials](tutorials/) page.
+To see more advanced examples, please check out the [Tutorials](tutorials/) page.
 
 ### Feedback
 
