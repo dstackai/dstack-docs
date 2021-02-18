@@ -90,6 +90,10 @@ As you see, the user is prompted to choose a stock symbol to view how its price 
 **Live Gallery:** [**https://dstack.cloud/gallery/stocks**](https://dstack.cloud/gallery/minimal_app)\*\*\*\*
 {% endhint %}
 
+{% hint style="info" %}
+Note, deploying `dstack` application can be done from either Python scripts or Jupyter notebooks. If it's more convenient to use a `Jupyter` notebook, go for it.
+{% endhint %}
+
 Now, to learn in more detail about what applications consist of and how to use all their features, proceed to the [Concepts](concepts/) page. See you there.
 
 {% page-ref page="concepts/" %}
