@@ -119,32 +119,33 @@ app = ds.app(require_apply=True)
 
 ## Control API Reference
 
-### TextField
+### Input
+
+An `input` control is an element of the user interface that the user of the application can use to enter text. Basically, it's a text field. Here's an example:
 
 ```python
-from datetime import datetime, timedelta
-
-import dstack.controls as ctrl
 import dstack as ds
-import plotly.express as px
-import pandas_datareader as pdr
+
+app = ds.app()  # create an instance of the application
 
 
-def output_handler(self: ctrl.Output, ticker: ctrl.TextField):
-    if len(ticker.text) > 0:
-        start = datetime.today() - timedelta(days=30)
-        end = datetime.today()
-        df = pdr.data.DataReader(ticker.text, 'yahoo', start, end)
-        self.data = px.line(df, x=df.index, y=df['High'])
+# a handler that updates the markdown output based on the input text
+def markdown_handler(self, name):
+    if len(name.text) > 0:
+        self.text = "Hi, **" + name.text + "**!"
     else:
-        self.data = ds.md("No ticker selected")
+        self.text = "No name"
 
 
-app = ds.app(controls=[ctrl.TextField(label="Select ticker")],
-             outputs=[ctrl.Output(handler=output_handler)])
+# an input control
+name = app.input(label="What's your name?")
 
-result = ds.push('controls/text_field', app)
-print(result.url)
+# a markdown output that greets the users using the given name
+app.markdown(handler=markdown_handler, depends=[name])
+
+# deploy the application with the name "controls/input" and print its URL
+url = app.deploy("controls/input")
+print(url)
 ```
 
 <table>
