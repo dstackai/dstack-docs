@@ -4,94 +4,116 @@ description: Learn which type of controls are supported and how to use them.
 
 # Controls
 
-A control is an element of the user interface that allows the user of the application to change input parameters. A `dstack` application may have any number of controls. The supported types of controls include text fields, combo boxes, sliders, check-boxes, and file uploaders. 
-
-All controls inherit the base class `dstack.controls.Control`. They must be initiated and passed as `controls` to the function `dstack.app()`. Each output of the application may depend on any number of controls. By default, outputs depend on all controls if otherwise is not defined.  All controls the output depends on must be listed in the signature of the handler of the corresponding output.
+A `dstack` application consists of controls. These controls, for example, may allow the user to change the input parameters of the application and see the corresponding outputs. The supported controls include text inputs, single and multiple selection controls, sliders, check-boxes, file uploaders, markdown outputs, table outputs, chart output, and markdown outputs.  A `dstack` application may have any number of controls arranged visually using the Grid layout. Any control \(be it input or output control\) may depend on other controls. 
 
 Here's a simple example:
 
 ```python
-from datetime import datetime, timedelta
-
-import dstack.controls as ctrl
 import dstack as ds
-import plotly.graph_objects as go
-import pandas_datareader.data as web
+import plotly.express as px
+
+app = ds.app()  # create an instance of the application
 
 
-def output_handler(self: ctrl.Output, symbols: ctrl.ComboBox):
-    start = datetime.today() - timedelta(days=30)
-    end = datetime.today()
-    df = web.DataReader(symbols.value(), 'yahoo', start, end)
-    fig = go.Figure(
-        data=[go.Candlestick(x=df.index, open=df['Open'], high=df['High'], low=df['Low'], close=df['Close'])])
-    self.data = fig
+# an utility function that loads the data
+def get_data():
+    return px.data.stocks()
 
 
-app = ds.app(controls=[ctrl.ComboBox(items=["FB", "AMZN", "AAPL", "NFLX", "GOOG"])],
-             outputs=[ctrl.Output(handler=output_handler)])
+# a drop-down control that shows stock symbols
+stock = app.select(items=get_data().columns[1:].tolist())
 
-result = ds.push("minimal_app", app)
-print(result.url)
+
+# a handler that updates the plot based on the selected stock
+def output_handler(self, stock):
+    # a plotly line chart where the X axis is date and Y is the stock's price
+    self.data = px.line(get_data(), x='date', y=stock.value())
+
+
+# a plotly chart output
+app.output(handler=output_handler, depends=[stock])
+
+# deploy the application with the name "stocks" and print its URL
+url = app.deploy("stocks")
+print(url)
 ```
 
-If we run the example above and open the link, here's how the application will look like:
+If we run the code above and open the link, we'll see the following application:
 
-![](../.gitbook/assets/ds_minimal_app_open_combo_box.png)
+![](../.gitbook/assets/dstack_stocks.png)
 
-Controls may use user functions to populate their data \(e.g. load it from a database\). It's also possible to make controls dependant on each other, e.g. to update their state based on the state of other controls.
-
-Here's another example, where one of the controls depends on the other one:
+In the example above we have a drop-down control, where we pass the list of items, and we have a chart output that is dependant on the drop-down control. To define a control that depends on other controls, you have to pass a handler, and the list of controls it's supposed to depend on:
 
 ```python
-import dstack.controls as ctrl
+# a handler that updates the plot based on the selected stock
+def output_handler(self, stock):
+    # a plotly line chart where the X axis is date and Y is the stock's price
+    self.data = px.line(get_data(), x='date', y=stock.value())
+
+
+# a plotly chart output
+app.output(handler=output_handler, depends=[stock])
+```
+
+Now, let's look at a more complicated example, where the items of the drop-down control are populated dynamically, and which has another drop-down that depends on the first drop-down control:
+
+```python
 import dstack as ds
 import pandas as pd
 
+app = ds.app()  # create an instance of the application
 
-@ds.cache()
+
+# an utility function that loads the data
 def get_data():
     return pd.read_csv("https://www.dropbox.com/s/cat8vm6lchlu5tp/data.csv?dl=1", index_col=0)
 
 
+# an utility function that returns regions
 def get_regions():
     df = get_data()
     return df["Region"].unique().tolist()
 
 
-def countries_handler(self: ctrl.ComboBox, regions: ctrl.ComboBox):
+# a drop-down control that shows regions
+regions = app.select(items=get_regions, label="Region")
+
+
+# a handler that updates the drop-down with counties based on the selected region
+def countries_handler(self, regions):
+    region = regions.value()  # the selected region
     df = get_data()
-    self.data = df[df["Region"] == regions.value()]["Country"].unique().tolist()
+    self.items = df[df["Region"] == region]["Country"].unique().tolist()
 
 
-regions = ctrl.ComboBox(items=get_regions, label="Region")
-countries = ctrl.ComboBox(handler=countries_handler, label="Country", depends=[regions])
+# a drop-down control that shows countries
+countries = app.select(handler=countries_handler, label="Country", depends=[regions])
 
 
-def output_handler(self: ctrl.Output, countries: ctrl.ComboBox):
+# a handler that updates the table output based on the selected country
+def output_handler(self, countries):
+    country = countries.value()  # the selected country 
     df = get_data()
-    self.data = df[df["Country"] == countries.value()]
+    self.data = df[df["Country"] == country]  # we assign a pandas dataframe here to self.data
 
 
-app = ds.app(controls=[regions, countries],
-             outputs=[ds.Output(handler=output_handler, depends=[countries])])
+# an output that shows companies based on the selected country
+app.output(handler=output_handler, depends=[countries])
 
-result = ds.push('dependant_controls_app', app)
-print(result.url)
+# deploy the application with the name "dependant_control" and print its URL
+url = app.deploy("dependant_control")
+print(url)
 ```
 
-If you run the code above and open the application, you'll see the following:
+If you run this code and open the application using the URL from the output, you'll see the following application:
 
 ![](../.gitbook/assets/ds_dependant_controls_app_open_popup.png)
 
-If you'd like the application to show the output only if the user clicks `Apply`, you can add `ctrl.Apply()` to the list of controls:
+If you'd like the application to show the output only if the user clicks `Apply`, you can invoke the following code before deploying the application:
 
 ```python
-app = ds.app(controls=[regions, countries, ctrl.Apply()],
-             outputs=[ds.Output(handler=output_handler, depends=[countries])])
+app = ds.app(require_apply=True)
 ```
-
-Here's how it would look then:
 
 ![](../.gitbook/assets/ds_dependant_controls_app_apply.png)
 
