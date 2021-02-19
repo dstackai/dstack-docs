@@ -4,7 +4,9 @@ description: Learn which type of controls are supported and how to use them.
 
 # Controls
 
-Controls are building blocks of applications. They allow the user of the application to change the input parameters and display the corresponding outputs. The supported controls include text inputs, single and multiple selection controls, sliders, check-boxes, file uploaders, markdown outputs, table outputs, chart output, and markdown outputs.  Any control may depend on other controls. An application may have any number of controls, and these controls are arranged visually using the `Grid` layout. 
+Controls are building blocks of applications. They allow the user of the application to change the input parameters and see the corresponding outputs. Any control may depend on other controls. An application may have any number of controls, and these controls are arranged visually using the `Grid` layout. 
+
+The supported controls include text inputs, single and multiple selection controls, sliders, check-boxes, file uploaders, markdown outputs, table outputs, chart output, and markdown outputs. 
 
 ## Example
 
@@ -119,7 +121,7 @@ app = ds.app(require_apply=True)
 
 ![](../.gitbook/assets/ds_dependant_controls_app_apply.png)
 
-## Control Layout
+## Application Layout
 
 **`TODO:`** `Add layout description`
 
