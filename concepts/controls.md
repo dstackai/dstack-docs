@@ -148,6 +148,8 @@ url = app.deploy("controls/input")
 print(url)
 ```
 
+Here's the list of arguments of the `dstack.Application.input()` function:
+
 <table>
   <thead>
     <tr>
@@ -183,15 +185,6 @@ print(url)
       style="text-align:left">Required if <code>text</code> is not set.</td>
     </tr>
     <tr>
-      <td style="text-align:left"><code>long</code>
-      </td>
-      <td style="text-align:left"><code>bool</code>
-      </td>
-      <td style="text-align:left"><code>True</code> if the field may contain long values (text paragraphs). <code>False</code> by
-        default.</td>
-      <td style="text-align:left">No</td>
-    </tr>
-    <tr>
       <td style="text-align:left"><code>label</code>
       </td>
       <td style="text-align:left"><code>str</code>
@@ -223,51 +216,49 @@ print(url)
       <td
       style="text-align:left">No</td>
     </tr>
-    <tr>
-      <td style="text-align:left"><code>optional</code>
-      </td>
-      <td style="text-align:left"><code>bool</code>
-      </td>
-      <td style="text-align:left"><code>True</code> if the filed&apos;s value is required for the application
-        to provide the output. <code>False</code> by default. If it&apos;s <code>False,</code> the <code>data</code> is
-        empty, and the Apply button is required, the <code>Apply</code> button will
-        be disabled.</td>
-      <td style="text-align:left">No</td>
-    </tr>
   </tbody>
 </table>
 
-#### ComboBox
+**`TODO:`** `Add a screenshot`
+
+#### Select
+
+A `select` control is an element of the user interface that the user of the application can use to select one or multiple items. Here's an example:
 
 ```python
-from datetime import datetime, timedelta
-
-import dstack.controls as ctrl
 import dstack as ds
 import plotly.express as px
-import pandas_datareader as pdr
+
+app = ds.app()  # create an instance of the application
 
 
-def ticker_handler(self: ctrl.ComboBox):
-    self.items = ['FB', 'AMZN', 'AAPL', 'NFLX', 'GOOG']
+# an utility function that loads the data
+def get_data():
+    return px.data.stocks()
 
 
-def output_handler(self: ctrl.Output, ticker: ctrl.ComboBox):
-    if ticker.selected > -1:
-        start = datetime.today() - timedelta(days=30)
-        end = datetime.today()
-        df = pdr.data.DataReader(ticker.items[ticker.selected], 'yahoo', start, end)
-        self.data = px.line(df, x=df.index, y=df['High'])
-    else:
-        self.data = ds.md("No ticker selected")
+# a drop-down control that shows stock symbols
+stock = app.select(items=get_data().columns[1:].tolist())
 
 
-app = ds.app(controls=[ctrl.ComboBox(label="Select ticker", handler=ticker_handler)],
-             outputs=[ctrl.Output(handler=output_handler)])
+# a handler that updates the plot based on the selected stock
+def output_handler(self, stock):
+    symbol = stock.value()  # the selected stock
+    # a plotly line chart where the X axis is date and Y is the stock's price
+    self.data = px.line(get_data(), x='date', y=symbol)
 
-result = ds.push('controls/combo_box', app)
-print(result.url)
+
+# a plotly chart output
+app.output(handler=output_handler, depends=[stock])
+
+# deploy the application with the name "stocks" and print its URL
+url = app.deploy("stocks")
+print(url)
 ```
+
+**`TODO:`** `Add a screenshot`
+
+Here's the list of arguments of the `dstack.Application.select()` function:
 
 <table>
   <thead>
@@ -297,8 +288,7 @@ print(result.url)
         <p></p>
         <p>Can be one of the following:</p>
         <ul>
-          <li>A list of items. <em>See example A.</em>
-          </li>
+          <li>A list of items.</li>
           <li>A function that returns a list of items. <em>See example B.</em>
           </li>
         </ul>
@@ -369,22 +359,38 @@ print(result.url)
       <td style="text-align:left">The other controls this control depends on.</td>
       <td style="text-align:left">No</td>
     </tr>
-    <tr>
-      <td style="text-align:left"><code>optional</code>
-      </td>
-      <td style="text-align:left">bool</td>
-      <td style="text-align:left"><code>True</code> if the filed&apos;s value is required for the application
-        to provide the output. <code>False</code> by default. If it&apos;s <code>False,</code> the <code>data</code> is
-        empty, and the Apply button is required, the <code>Apply</code> button will
-        be disabled.</td>
-      <td style="text-align:left">No</td>
-    </tr>
   </tbody>
 </table>
 
-### CheckBox
+### Checkbox
 
-`dstack.controls.CheckBox`
+A `checkbox` control is an element of the user interface that the user of the application can use to enable or disable a certain boolean property, meaning `"Yes"` or `"Now"`. Here's an example:
+
+```python
+import dstack as ds
+
+app = ds.app()  # create an instance of the application
+
+
+# a handler that updates the label of the checkbox based on wether it's selected or not
+def checkbox_handler(self):
+    if self.selected:
+        self.label = "Selected"
+    else:
+        self.label = "Not selected"
+
+
+# a checkbox control
+name = app.checkbox(handler=checkbox_handler)
+
+# deploy the application with the name "controls/checkbox" and print its URL
+url = app.deploy("controls/checkbox")
+print(url)
+```
+
+**`TODO:`** `Add a screenshot`
+
+Here's the list of arguments of the `dstack.Application.checkbox()` function:
 
 <table>
   <thead>
