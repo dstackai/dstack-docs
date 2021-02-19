@@ -6,6 +6,7 @@
   * [Controls](concepts/controls.md)
   * [Outputs](concepts/outputs.md)
   * [Tabs](concepts/tabs.md)
+  * [Progress](concepts/progress.md)
   * [Caching](concepts/caching.md)
   * [ML Models](concepts/ml-models.md)
   * [Dependencies](concepts/dependencies.md)

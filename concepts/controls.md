@@ -4,11 +4,7 @@ description: Learn which type of controls are supported and how to use them.
 
 # Controls
 
-Controls are building blocks of applications. They allow the user of the application to change the input parameters and see the corresponding outputs. Any control may depend on other controls. An application may have any number of controls, and these controls are arranged visually using the `Grid` layout. 
-
-The supported controls include text inputs, single and multiple selection controls, sliders, check-boxes, file uploaders, markdown outputs, table outputs, chart output, and markdown outputs. 
-
-## Example
+A `dstack` application consists of controls. These controls, for example, may allow the user to change the input parameters of the application and see the corresponding outputs. The supported controls include text inputs, single and multiple selection controls, sliders, check-boxes, file uploaders, markdown outputs, table outputs, chart output, and markdown outputs.  A `dstack` application may have any number of controls arranged visually using the Grid layout. Any control \(be it input or output control\) may depend on other controls. 
 
 Here's a simple example:
 
@@ -121,15 +117,11 @@ app = ds.app(require_apply=True)
 
 ![](../.gitbook/assets/ds_dependant_controls_app_apply.png)
 
-## Application Layout
-
-**`TODO:`** `Add layout description`
-
 ## Control API Reference
 
 ### Input
 
-The `Input` control can be used to enter text:
+An `input` control is an element of the user interface that the user of the application can use to enter text. Basically, it's a text field. Here's an example:
 
 ```python
 import dstack as ds
@@ -155,10 +147,6 @@ app.markdown(handler=markdown_handler, depends=[name])
 url = app.deploy("controls/input")
 print(url)
 ```
-
-**`TODO:`** `Add screenshot`
-
-Here's the list of arguments of the `dstack.Application.input()` function:
 
 <table>
   <thead>
@@ -195,6 +183,15 @@ Here's the list of arguments of the `dstack.Application.input()` function:
       style="text-align:left">Required if <code>text</code> is not set.</td>
     </tr>
     <tr>
+      <td style="text-align:left"><code>long</code>
+      </td>
+      <td style="text-align:left"><code>bool</code>
+      </td>
+      <td style="text-align:left"><code>True</code> if the field may contain long values (text paragraphs). <code>False</code> by
+        default.</td>
+      <td style="text-align:left">No</td>
+    </tr>
+    <tr>
       <td style="text-align:left"><code>label</code>
       </td>
       <td style="text-align:left"><code>str</code>
@@ -220,74 +217,57 @@ Here's the list of arguments of the `dstack.Application.input()` function:
     <tr>
       <td style="text-align:left"><code>require_apply</code>
       </td>
-      <td style="text-align:left"><code>bool</code>
-      </td>
+      <td style="text-align:left">bool</td>
       <td style="text-align:left"><code>True</code> if the field requires an <code>Apply</code> button to be
         clicked for the application to update the output. <code>True</code> by default.</td>
       <td
       style="text-align:left">No</td>
     </tr>
     <tr>
-      <td style="text-align:left"><code>colspan</code>
+      <td style="text-align:left"><code>optional</code>
       </td>
-      <td style="text-align:left"><code>int</code>
+      <td style="text-align:left"><code>bool</code>
       </td>
-      <td style="text-align:left">The number of columns the control is taking up. By default, it&apos;s <code>2</code>.</td>
-      <td
-      style="text-align:left">No</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>rowspan</code>
-      </td>
-      <td style="text-align:left"><code>int</code>
-      </td>
-      <td style="text-align:left">The number of rows the control is taking up. By default, it&apos;s <code>1</code>.</td>
-      <td
-      style="text-align:left">No</td>
+      <td style="text-align:left"><code>True</code> if the filed&apos;s value is required for the application
+        to provide the output. <code>False</code> by default. If it&apos;s <code>False,</code> the <code>data</code> is
+        empty, and the Apply button is required, the <code>Apply</code> button will
+        be disabled.</td>
+      <td style="text-align:left">No</td>
     </tr>
   </tbody>
 </table>
 
-**`TODO:`** `Add a screenshot`
-
-### Select
-
-The `Select` control can be used to select one or multiple items:
+#### ComboBox
 
 ```python
+from datetime import datetime, timedelta
+
+import dstack.controls as ctrl
 import dstack as ds
 import plotly.express as px
-
-app = ds.app()  # create an instance of the application
-
-
-# an utility function that loads the data
-def get_data():
-    return px.data.stocks()
+import pandas_datareader as pdr
 
 
-# a drop-down control that shows stock symbols
-stock = app.select(items=get_data().columns[1:].tolist())
+def ticker_handler(self: ctrl.ComboBox):
+    self.items = ['FB', 'AMZN', 'AAPL', 'NFLX', 'GOOG']
 
 
-# a handler that updates the plot based on the selected stock
-def output_handler(self, stock):
-    symbol = stock.value()  # the selected stock
-    # a plotly line chart where the X axis is date and Y is the stock's price
-    self.data = px.line(get_data(), x='date', y=symbol)
+def output_handler(self: ctrl.Output, ticker: ctrl.ComboBox):
+    if ticker.selected > -1:
+        start = datetime.today() - timedelta(days=30)
+        end = datetime.today()
+        df = pdr.data.DataReader(ticker.items[ticker.selected], 'yahoo', start, end)
+        self.data = px.line(df, x=df.index, y=df['High'])
+    else:
+        self.data = ds.md("No ticker selected")
 
 
-# a plotly chart output
-app.output(handler=output_handler, depends=[stock])
+app = ds.app(controls=[ctrl.ComboBox(label="Select ticker", handler=ticker_handler)],
+             outputs=[ctrl.Output(handler=output_handler)])
 
-# deploy the application with the name "stocks" and print its URL
-url = app.deploy("stocks")
-print(url)
+result = ds.push('controls/combo_box', app)
+print(result.url)
 ```
-
-**`TODO:`** `Add a screenshot`
-
-Here's the list of arguments of the `dstack.Application.select()` function:
 
 <table>
   <thead>
@@ -317,7 +297,8 @@ Here's the list of arguments of the `dstack.Application.select()` function:
         <p></p>
         <p>Can be one of the following:</p>
         <ul>
-          <li>A list of items.</li>
+          <li>A list of items. <em>See example A.</em>
+          </li>
           <li>A function that returns a list of items. <em>See example B.</em>
           </li>
         </ul>
@@ -389,55 +370,21 @@ Here's the list of arguments of the `dstack.Application.select()` function:
       <td style="text-align:left">No</td>
     </tr>
     <tr>
-      <td style="text-align:left"><code>colspan</code>
+      <td style="text-align:left"><code>optional</code>
       </td>
-      <td style="text-align:left"><code>int</code>
-      </td>
-      <td style="text-align:left">The number of columns the control is taking up. By default, it&apos;s <code>2</code>.</td>
-      <td
-      style="text-align:left">No</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>rowspan</code>
-      </td>
-      <td style="text-align:left"><code>int</code>
-      </td>
-      <td style="text-align:left">The number of rows the control is taking up. By default, it&apos;s <code>1</code>.</td>
-      <td
-      style="text-align:left">No</td>
+      <td style="text-align:left">bool</td>
+      <td style="text-align:left"><code>True</code> if the filed&apos;s value is required for the application
+        to provide the output. <code>False</code> by default. If it&apos;s <code>False,</code> the <code>data</code> is
+        empty, and the Apply button is required, the <code>Apply</code> button will
+        be disabled.</td>
+      <td style="text-align:left">No</td>
     </tr>
   </tbody>
 </table>
 
-### Checkbox
+### CheckBox
 
-The `Checkbox` control can used to select or unselect a certain `boolean` property. Here's an example:
-
-```python
-import dstack as ds
-
-app = ds.app()  # create an instance of the application
-
-
-# a handler that updates the label of the checkbox based on wether it's selected or not
-def checkbox_handler(self):
-    if self.selected:
-        self.label = "Selected"
-    else:
-        self.label = "Not selected"
-
-
-# a checkbox control
-name = app.checkbox(handler=checkbox_handler)
-
-# deploy the application with the name "controls/checkbox" and print its URL
-url = app.deploy("controls/checkbox")
-print(url)
-```
-
-**`TODO:`** `Add a screenshot`
-
-Here's the list of arguments of the `dstack.Application.checkbox()` function:
+`dstack.controls.CheckBox`
 
 <table>
   <thead>
@@ -496,65 +443,34 @@ Here's the list of arguments of the `dstack.Application.checkbox()` function:
       <td style="text-align:left">The other controls this control depends on.</td>
       <td style="text-align:left">No</td>
     </tr>
-    <tr>
-      <td style="text-align:left"><code>colspan</code>
-      </td>
-      <td style="text-align:left"><code>int</code>
-      </td>
-      <td style="text-align:left">The number of columns the control is taking up. By default, if the checkbox
-        has a <code>label</code>, it&apos;s <code>2</code>. Otherwise, it&apos;s <code>1</code>.</td>
-      <td
-      style="text-align:left">No</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>rowspan</code>
-      </td>
-      <td style="text-align:left"><code>int</code>
-      </td>
-      <td style="text-align:left">The number of rows the control is taking up. By default, it&apos;s <code>1</code>.</td>
-      <td
-      style="text-align:left">No</td>
-    </tr>
   </tbody>
 </table>
 
 ### Slider
 
-The `Slider` control can be used to select a number out of a given range. It supports both integer and double numbers. Here's an example:
-
 ```python
+import dstack.controls as ctrl
 import dstack as ds
 import plotly.express as px
 
-app = ds.app()  # create an instance of the application
 
-
-# an utility function that loads the data
+@ds.cache()
 def get_data():
     return px.data.gapminder()
 
 
-# a handler that updates the plot output based on the selected year
-def output_handler(self, year):
-    value = year.value()  # the selected year
-    self.data = px.scatter(get_data().query("year==" + str(value)), x="gdpPercap", y="lifeExp",
+def output_handler(self: ctrl.Output, year: ctrl.Slider):
+    year = year.values[year.selected]
+    self.data = px.scatter(get_data().query("year==" + str(year)), x="gdpPercap", y="lifeExp",
                            size="pop", color="country", hover_name="country", log_x=True, size_max=60)
 
 
-# a slider control that prompts to select a year
-slider = app.slider(values=get_data()["year"].unique().tolist())
+app = ds.app(controls=[ctrl.Slider(values=get_data()["year"].unique().tolist(), require_apply=False)],
+             outputs=[ctrl.Output(handler=output_handler)])
 
-# an output control that shows the chart
-app.output(handler=output_handler, depends=[slider])
-
-# deploy the application with the name "controls/" and print its URL
-url = app.deploy("controls/slider")
-print(url)
+result = ds.push('controls/slider', app)
+print(result.url)
 ```
-
-**`TODO:`** `Add a screenshot`
-
-Here's the list of arguments of the `dstack.Application.slider()` function:
 
 <table>
   <thead>
@@ -648,62 +564,40 @@ Here's the list of arguments of the `dstack.Application.slider()` function:
       <td style="text-align:left">No</td>
     </tr>
     <tr>
-      <td style="text-align:left"><code>colspan</code>
+      <td style="text-align:left"><code>optional</code>
       </td>
-      <td style="text-align:left"><code>int</code>
-      </td>
-      <td style="text-align:left">The number of columns the control is taking up. By default, it&apos;s <code>2</code>.</td>
-      <td
-      style="text-align:left">No</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>rowspan</code>
-      </td>
-      <td style="text-align:left"><code>int</code>
-      </td>
-      <td style="text-align:left">The number of rows the control is taking up. By default, it&apos;s <code>1</code>.</td>
-      <td
-      style="text-align:left">No</td>
+      <td style="text-align:left">bool</td>
+      <td style="text-align:left"><code>True</code> if the filed&apos;s value is required for the application
+        to provide the output. <code>False</code> by default. If it&apos;s <code>False,</code> the <code>data</code> is
+        empty, and the Apply button is required, the <code>Apply</code> button will
+        be disabled.</td>
+      <td style="text-align:left">No</td>
     </tr>
   </tbody>
 </table>
 
-### Uploader
-
-The `Uploader` control can be used to upload single or multple files and access their content. Here's an example:
+### FileUploader
 
 ```python
 import dstack as ds
+import dstack.controls as ctrl
 import pandas as pd
 
-app = ds.app()  # create an instance of the application
 
-
-# a handler that loads a dataframe from the content of the uploaded CSV file and passes it to the output
-def app_handler(self, uploader):
+def app_handler(self: ctrl.Output, uploader: ctrl.FileUploader):
     if len(uploader.uploads) > 0:
         with uploader.uploads[0].open() as f:
-            self.label = uploader.uploads[0].file_name
             self.data = pd.read_csv(f).head(100)
     else:
-        self.label = "No file selected"
-        self.data = None
+        self.data = ds.md("No file selected")
 
 
-# a file uploader control
-uploader = app.uploader(label="Select a CSV file")
+app = ds.app(controls=[ctrl.FileUploader(label="Select a CSV file")],
+             outputs=[ctrl.Output(handler=app_handler)])
 
-# an output control that shows the content of the uploaded file
-app.output(handler=app_handler, depends=[uploader])
-
-# deploy the application with the name "controls/select" and print its URL
-url = app.deploy("controls/file_uploader")
+url = ds.push("controls/file_uploader", app)
 print(url)
 ```
-
-**`TODO:`** `Add a screenshot`
-
-Here's the list of arguments of the `dstack.Application.uploader()` function:
 
 <table>
   <thead>
@@ -744,7 +638,7 @@ Here's the list of arguments of the `dstack.Application.uploader()` function:
       </td>
       <td style="text-align:left"><code>bool</code>
       </td>
-      <td style="text-align:left"><code>True</code> if multiple files are allowed. <code>False</code> by default.</td>
+      <td style="text-align:left"><code>True</code> if multiple files is allowed. <code>False</code> by default.</td>
       <td
       style="text-align:left">No</td>
     </tr>
@@ -772,153 +666,16 @@ Here's the list of arguments of the `dstack.Application.uploader()` function:
       <td style="text-align:left">No</td>
     </tr>
     <tr>
-      <td style="text-align:left"><code>colspan</code>
+      <td style="text-align:left"><code>optional</code>
       </td>
-      <td style="text-align:left"><code>int</code>
+      <td style="text-align:left"><code>bool</code>
       </td>
-      <td style="text-align:left">The number of columns the control is taking up. By default, it&apos;s <code>2</code>.</td>
-      <td
-      style="text-align:left">No</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>rowspan</code>
-      </td>
-      <td style="text-align:left"><code>int</code>
-      </td>
-      <td style="text-align:left">The number of rows the control is taking up. By default, it&apos;s <code>1</code>.</td>
-      <td
-      style="text-align:left">No</td>
+      <td style="text-align:left"><code>True</code> if the filed&apos;s value is required for the application
+        to provide the output. <code>False</code> by default. If it&apos;s <code>False,</code> the <code>data</code> is
+        empty, and the Apply button is required, the <code>Apply</code> button will
+        be disabled.</td>
+      <td style="text-align:left">No</td>
     </tr>
   </tbody>
 </table>
-
-### Markdown
-
-The `Markdown` control can used to display a markdown text. Here's the same example that we used in for the `Input` control:
-
-```python
-import dstack as ds
-
-app = ds.app()  # create an instance of the application
-
-
-# a handler that updates the markdown output based on the input text
-def markdown_handler(self, name):
-    if len(name.text) > 0:
-        self.text = "Hi, **" + name.text + "**!"
-    else:
-        self.text = "No name"
-
-
-# an input control
-name = app.input(label="What's your name?")
-
-# a markdown output that greets the users using the given name
-app.markdown(handler=markdown_handler, depends=[name])
-
-# deploy the application with the name "controls/input" and print its URL
-url = app.deploy("controls/input")
-print(url)
-```
-
-Above, you see a `Markdown` control that displays the text based on the text specified in another control. Below is a more simple example, where the `Markdown` control just displays a static text:
-
-```python
-import dstack as ds
-
-app = ds.app()  # create an instance of the application
-
-# a markdown output
-app.markdown(text="Hello, **World!**")
-
-# deploy the application with the name "markdown" and print its URL
-url = app.deploy("markdown")
-print(url)
-```
-
-**`TODO:`** `Add a screenshot`
-
-Here's the list of arguments of the `dstack.Application.markdown()` function:
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Parameter</th>
-      <th style="text-align:left">Type</th>
-      <th style="text-align:left">Description</th>
-      <th style="text-align:left">Required</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left"><code>text</code>
-      </td>
-      <td style="text-align:left">
-        <p>Can be one of the following:</p>
-        <ul>
-          <li><code>str</code>
-          </li>
-          <li><code>Callable[[], str]</code>
-          </li>
-        </ul>
-      </td>
-      <td style="text-align:left">The text value of the control.</td>
-      <td style="text-align:left">Not required if <code>handler</code> is used.</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>handler</code>
-      </td>
-      <td style="text-align:left"><code>Callable[..., None]</code>
-      </td>
-      <td style="text-align:left">The function that initializes or updates the state of the control.</td>
-      <td
-      style="text-align:left">Required if <code>text</code> is not set.</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>label</code>
-      </td>
-      <td style="text-align:left"><code>str</code>
-      </td>
-      <td style="text-align:left">The caption of the control.</td>
-      <td style="text-align:left">No</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>depends</code>
-      </td>
-      <td style="text-align:left">
-        <p>Can be one of the following:</p>
-        <ul>
-          <li><code>List[Control]</code>
-          </li>
-          <li><code>Control</code>
-          </li>
-        </ul>
-      </td>
-      <td style="text-align:left">The other controls this control depends on.</td>
-      <td style="text-align:left">No</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>colspan</code>
-      </td>
-      <td style="text-align:left"><code>int</code>
-      </td>
-      <td style="text-align:left">The number of columns the control is taking up. By default, it&apos;s <code>12</code>.</td>
-      <td
-      style="text-align:left">No</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>rowspan</code>
-      </td>
-      <td style="text-align:left"><code>int</code>
-      </td>
-      <td style="text-align:left">The number of rows the control is taking up. By default, it&apos;s <code>6</code>.</td>
-      <td
-      style="text-align:left">No</td>
-    </tr>
-  </tbody>
-</table>
-
-### Output
-
-**`TODO:`** `Add output description`
 
