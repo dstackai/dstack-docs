@@ -916,3 +916,7 @@ Here's the list of arguments of the `dstack.Application.markdown()` function:
   </tbody>
 </table>
 
+### Output
+
+**`TODO:`** `Add output description`
+
