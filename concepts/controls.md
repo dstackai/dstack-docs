@@ -221,7 +221,7 @@ Here's the list of arguments of the `dstack.Application.input()` function:
 
 **`TODO:`** `Add a screenshot`
 
-#### Select
+### Select
 
 A `select` control is an element of the user interface that the user of the application can use to select one or multiple items. Here's an example:
 
