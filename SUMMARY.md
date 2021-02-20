@@ -4,7 +4,6 @@
 * [🚀 Quickstart](quickstart.md)
 * [🧩 Concepts](concepts/README.md)
   * [Controls](concepts/controls.md)
-  * [Outputs](concepts/outputs.md)
   * [Tabs](concepts/tabs.md)
   * [Progress](concepts/progress.md)
   * [Caching](concepts/caching.md)
