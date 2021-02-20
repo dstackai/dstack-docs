@@ -4,43 +4,40 @@ description: Learn how to create multi-tab applications.
 
 # Tabs
 
-An application may have multiple tabs . Here's an example of the application with two tabs: `"Scatter Chart"` and `"Bar Chart"`:
+`dstack` allows applications to have multiple tabs. Here's an example of the application with two tabs: `"Scatter Chart"` and `"Bar Chart".`
+
+In order to push an application with multiple tabs, one has to create a frame by using `dstack.frame()`, then call the function `add()` on the frame for every tab and pass there the corresponding `controls` and `outputs.` The title of the corresponding tab is passed with the attribute `params` , as dictionary with the title of the tab mapped to `ds.tab()`\(see the example above\). 
+
+Finally, the function `push` must be called on the frame. Just like `dstack.push()`, it pushes the application and returns its URL. Here's the code:
 
 ```python
 import dstack as ds
+import dstack.controls as ctrl
 import plotly.express as px
 
-app = ds.app()
 
-scatter_tab = app.tab("Scatter Chart")
-
-
-def scatter_handler(self):
+def scatter_handler(self: ctrl.Output):
     df = px.data.iris()
     self.data = px.scatter(df, x="sepal_width", y="sepal_length", color="species")
 
 
-scatter_tab.output(handler=scatter_handler)
-
-
-def bar_handler(self):
+def bar_handler(self: ctrl.Output):
     df = px.data.tips()
     self.data = px.bar(df, x="sex", y="total_bill", color="smoker", barmode="group")
 
 
-bar_tab = app.tab("Bar Chart")
+frame = ds.frame("minimal_app_tabs")
 
-bar_tab.output(handler=bar_handler)
+frame.add(ds.app(outputs=[ds.Output(handler=scatter_handler)]), params={"Scatter Chart": ds.tab()})
+frame.add(ds.app(outputs=[ds.Output(handler=bar_handler)]), params={"Bar Chart": ds.tab()})
 
-url = app.deploy("tabs")
+url = frame.push()
 print(url)
 ```
 
-If you open the application, you'll see the following:
+If you push the application from the example above and then open its URL, you'll see the following:
 
 ![](../.gitbook/assets/ds_multi_tab.png)
 
-When you invoke the `dstack.Application.tab()` function, you get an instance of `dstack.ApplicationBase` which has pretty much all functions that `dstack.Application` has so you can change its layout, and add controls.
-
-**`TODO:`** `Add a link to the GitHub repo`
+Similar to applications with no tabs, every tab in a multi-tab application may have any number of controls or outputs.
 
