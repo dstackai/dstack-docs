@@ -874,7 +874,7 @@ Here's the list of arguments of the `dstack.Application.uploader()` function:
 
 ### Markdown
 
-The `Markdown` control can used to display a markdown text. Here's the same example that we used in for the `Input` control:
+The `Markdown` control can be used to display a markdown text. Here's the same example that we used erlier:
 
 ```python
 import dstack as ds
@@ -1000,5 +1000,111 @@ Here's the list of arguments of the `dstack.Application.markdown()` function:
 
 ### Output
 
-**`TODO:`** `Add output description`
+The `Output` control can be used to display table data or charts. Outputs support `Pandas` dataframes, and `Plotly`, `Bokeh`, `Matplotlib`, and `Seaborn` charts.
+
+#### Pandas
+
+**`TODO:`** `Add Pandas example`
+
+#### Plotly
+
+**`TODO:`** `Add Plotly example`
+
+#### Bokeh
+
+**`TODO:`** `Add Bokeh example`
+
+#### Matplotlib
+
+**`TODO:`** `Add Pandas example`
+
+#### Seaborn
+
+**`TODO:`** `Add Seaborn example`
+
+Here's the list of arguments of the `dstack.Application.output()` function:
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Parameter</th>
+      <th style="text-align:left">Type</th>
+      <th style="text-align:left">Description</th>
+      <th style="text-align:left">Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left"><code>data</code>
+      </td>
+      <td style="text-align:left">
+        <p>Can be one of the following:</p>
+        <ul>
+          <li><code>pandas.core.frame.DataFrame</code>
+          </li>
+          <li><code>plotly.basedatatypes.BaseFigure</code>
+          </li>
+          <li><code>matplotlib.figure.Figure</code>
+          </li>
+          <li><code>bokeh.plotting.Figure</code>
+          </li>
+          <li><code>Callable</code>
+          </li>
+        </ul>
+      </td>
+      <td style="text-align:left">The data to display in the output.</td>
+      <td style="text-align:left">Not required if <code>handler</code> is used.</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>handler</code>
+      </td>
+      <td style="text-align:left"><code>Callable[..., None]</code>
+      </td>
+      <td style="text-align:left">The function that initializes or updates the state of the control.</td>
+      <td
+      style="text-align:left">Required if <code>text</code> is not set.</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>label</code>
+      </td>
+      <td style="text-align:left"><code>str</code>
+      </td>
+      <td style="text-align:left">The caption of the control.</td>
+      <td style="text-align:left">No</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>depends</code>
+      </td>
+      <td style="text-align:left">
+        <p>Can be one of the following:</p>
+        <ul>
+          <li><code>List[Control]</code>
+          </li>
+          <li><code>Control</code>
+          </li>
+        </ul>
+      </td>
+      <td style="text-align:left">The other controls this control depends on.</td>
+      <td style="text-align:left">No</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>colspan</code>
+      </td>
+      <td style="text-align:left"><code>int</code>
+      </td>
+      <td style="text-align:left">The number of columns the control is taking up. By default, it&apos;s <code>6</code>.</td>
+      <td
+      style="text-align:left">No</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>rowspan</code>
+      </td>
+      <td style="text-align:left"><code>int</code>
+      </td>
+      <td style="text-align:left">The number of rows the control is taking up. By default, it&apos;s <code>6</code>.</td>
+      <td
+      style="text-align:left">No</td>
+    </tr>
+  </tbody>
+</table>
 
