@@ -117,15 +117,93 @@ If you run this code and open the application, you'll see the following:
 
 ![](../.gitbook/assets/ds_dependant_controls_app_open_popup.png)
 
+### Sidebar
+
+By default, all controls are placed in the main area. Sometimes, it may be useful to place certain control in a sidebar. To do that, you have to use the `dstack.Application.sidebar()` function. Here's a very simple example:
+
+```python
+import dstack as ds
+import plotly.express as px
+
+app = ds.app()  # create an instance of the application
+
+siebar = app.sidebar() # create a sidebar
+
+# an utility function that loads the data
+def get_data():
+    return px.data.stocks()
+
+
+# a drop-down control inside the sidebar
+stock = siebar.select(items=get_data().columns[1:].tolist())
+
+
+# a handler that updates the plot based on the selected stock
+def output_handler(self, stock):
+    # a plotly line chart where the X axis is date and Y is the stock's price
+    self.data = px.line(get_data(), x='date', y=stock.value())
+
+
+# a plotly chart output in the main area
+app.output(handler=output_handler, depends=[stock])
+
+# deploy the application with the name "stocks_sidebar" and print its URL
+url = app.deploy("stocks_sidebar")
+print(url)
+```
+
+Now, if you open the application, you'll see the following:
+
+**`TODO:`** `Add screenshot`
+
 ### Require Apply
 
-If you'd like the application to show the output only if the user clicks `Apply`, you can invoke the following code before deploying the application:
+By default, the application triggers the application update \(including updating outputs\) every time the user changes anything. If you'd like the application to update only if the user clicks `Apply`, you can invoke the following code when creating the application:
 
 ```python
 app = ds.app(require_apply=True)
 ```
 
+If you open the application, you'll see the following:
+
 ![](../.gitbook/assets/ds_dependant_controls_app_apply.png)
+
+By default, most controls are updated immediately. An exception is outputs, which are updated only after the user clicks `Apply`. If you want to change this behavior, you can do that by changing the `require_apply` attribute when creating a control:
+
+**`TODO:`** `Add code snippet`
+
+### Layout
+
+Controls may be visually arranged within the application using the `layout` system. Currently, `dstack` supports only the `"grid"` layout. This means an application is divided into columns and rows, and controls may take up any number of these columns and rows.
+
+Here's how it works:
+
+```python
+import dstack as ds
+
+# create an instance of the application that has three columns
+app = ds.app(columns = 3) 
+
+# an input that takes one column and one row
+input_1 = app.input(label="Input 1", colspan=1)
+# an input that takes one column and one row
+input_2 = app.input(label="Input 2", colspan=1)
+# an input that takes one column and two rows
+input_3 = app.input(label="Input 3", colspan=1, rowspan=2)
+
+url = app.deploy("layout_1")
+print(url)
+```
+
+If we open the application, we'll see the following:
+
+**`TODO:`** `Add screenshot`
+
+If you don't specify `columns` within `dstack.app()`, it will be set to `12`.
+
+{% hint style="info" %}
+The sidebar just like the main area also uses the `"grid"` layout. However, by default, it has `2` columns instead of `12`. 
+{% endhint %}
 
 ## Reference
 
