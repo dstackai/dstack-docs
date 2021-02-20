@@ -12,28 +12,27 @@ Here's an example:
 
 ```python
 import dstack as ds
+import dstack.controls as ctrl
 
 from handlers import fake_handler
 
-# create an instance of an application an pass over 
-# dependencies to local modules "handlers" and "utils" and third-party packages
-app = ds.app(depends=["handlers", "utils"], requirements="requirements.txt")
+app = ds.app(outputs=[ctrl.Output(handler=fake_handler)], depends=["handlers", "utils"],
+             requirements="requirements.txt")
 
-# The line above is equal to the line below
-# app = ds.app(depends=["numpy", "pandas", "faker==5.5.0", "handlers", "utils"])
-
-# an output with a handler from one of the modules the application depends on
-app.output(handler=fake_handler)
-
-# deploy the application with the name "stocks" and print its URL
-url = app.deploy("faker")
+url = ds.push("deps_app", app)
 print(url)
 ```
 
 As you see, we use `depends` and `requirements` arguments to specify what modules, packages, and libraries our application depends on. In this case, the application depends on the module \`handlers\`, the package `utils`, and on all libraries specified in the `requirements.txt`.
 
+The `depends` argument may list either local modules and packages or PiPy packages. An alternative equivalent of the line above would be the following:
+
+```python
+ds.app(outputs=[ctrl.Output(handler=fake_handler)], depends=["numpy", "pandas", "faker==5.5.0", "handlers", "utils"])
+```
+
 {% hint style="warning" %}
-Note, it's important that when you run `app.py,` the root directory is `deps_app` where `handlers` and `utils` are located. If the directory is different, `dstack` may not find them.
+Note, it's important that when you run `app.py` the root directory is `deps_app` where `handlers` and `utils` are located. If the directory is different, `dstack` may not find them.
 {% endhint %}
 
 When you run the application the first time, `dstack` makes sure all dependencies are installed.
