@@ -2,7 +2,7 @@
 description: Learn how to create multi-tab applications.
 ---
 
-# Tabs
+# Layout
 
 `dstack` allows applications to have multiple tabs. Here's an example of the application with two tabs: `"Scatter Chart"` and `"Bar Chart".`
 

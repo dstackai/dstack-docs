@@ -5,7 +5,7 @@
 * [🧩 Concepts](concepts/README.md)
   * [Controls](concepts/controls.md)
   * [Outputs](concepts/outputs.md)
-  * [Tabs](concepts/tabs.md)
+  * [Layout](concepts/layout.md)
   * [Progress](concepts/progress.md)
   * [Caching](concepts/caching.md)
   * [ML Models](concepts/ml-models.md)
