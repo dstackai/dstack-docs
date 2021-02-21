@@ -48,11 +48,11 @@ If we run the code above and open the link, we'll see the following application:
 
 ![](../.gitbook/assets/dstack_stocks.png)
 
-### State and Dependencies
+### Control State
 
 As you saw above you can initialize a control via either setting the initial state of the control \(e.g. by setting `items` to `select`\), or by setting a `handler` \(as we did above for `output`\). 
 
-Here's the example of setting the state directly:
+Here's the example of setting the state directly \(note, you can pass values or even a function that returns them\):
 
 ```python
 # a drop-down control that shows stock symbols
@@ -218,7 +218,9 @@ If you don't specify `columns` within `dstack.app()`, it will be set to `12`.
 The sidebar just like the main area also uses the `"grid"` layout. However, by default, it has `2` columns instead of `12`. 
 {% endhint %}
 
-## Reference
+## Control Reference
+
+Below, you'll find the entire list of supported controls, with a complete list of their attributes, and examples.
 
 ### Input
 
@@ -887,7 +889,7 @@ Here's the list of arguments of the `dstack.Application.uploader()` function:
 
 ### Markdown
 
-The `Markdown` control can be used to display a markdown text. Here's the same example that we used erlier:
+The `Markdown` control can be used to display a markdown text. Here's the same example that we used earlier:
 
 ```python
 import dstack as ds
