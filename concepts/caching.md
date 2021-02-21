@@ -1,14 +1,12 @@
 ---
-description: >-
-  Learn how to improve performance of your applications by using its built-in
-  caching system.
+description: Learn how to improve performance of your applications by using cache.
 ---
 
 # Caching
 
-Since `dstack` applications often work with large datasets and ML models, unnecessary heavy computations may affect the performance of applications. In order to avoid it, `dstack` offers its built-in caching system. 
+Since `dstack` applications often work with large datasets and ML models, unnecessary heavy computations may affect the performance of applications. In order to avoid it, `dstack` offers the concept of caching. 
 
-Here's a very simple example of how it works:
+Here's the most simple example of how it works:
 
 ```python
 import dstack as ds
