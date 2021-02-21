@@ -4,7 +4,7 @@ description: Learn how to use ML registry and how to use ML models in applicatio
 
 # ML Models
 
-`dstack` decouples the development of applications from the development of ML models by offering a built-in ML registry. This way, one can develop ML models, push them to the registry, and then pull these models later from applications.
+`dstack` decouples the development of applications from the development of ML models by offering an ML registry. This way, one can develop ML models, push them to the registry, and then later pull these models from applications. 
 
 `dstack`'s  ML Registry supports `Tensorflow`, `PyTorch`, or `Scikit-Learn` models.
 
@@ -27,7 +27,7 @@ Now, if you click the URL, it will open the following page:
 
 ![](../.gitbook/assets/ds_-clf_app.png)
 
-Here, you can see a code snippet of how to pull the model from an application or from anywhere else:
+Here you can see the snippet of how to pull the model from an application or from anywhere else:
 
 ```python
 import dstack as ds
@@ -35,7 +35,7 @@ import dstack as ds
 model = ds.pull('/dstack/clf_app')
 ```
 
-Also, here you can edit a `README.md` file to provide documentation on how to use the model. 
+Also, here you can edit a `README.md` file that will provide documentation on how to use this model. 
 
 Check out the following tutorial on how to build an application that uses a simple ML model:
 
