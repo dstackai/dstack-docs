@@ -40,11 +40,13 @@ Now let's build a simple application to see how `dstack` works in action.
 
 Here's an elementary example of using `dstack` for building an application that takes stock exchange data and renders it for the company selected by the user.
 
-Imagine, we want to use `plotly` 's bundled dataset. Here's how it looks like:
+In a real `dstack` application, you'd use a real data source, via a connection to a database or a data warehouse. In this simple example, we'll use `plotly` 's bundled dataset as the source of the data for our application. Here's how it looks like:
 
 ![](.gitbook/assets/dstack_jupyter.png)
 
-The first column is the date, and the others are the prices for the stock associated with the column. Let's now see how you can use dstack to build an application that uses this data:
+The first column is the date, and the others are the prices for the stock associated with the column. 
+
+Let's now see how you can use `dstack` to build an application that uses this data:
 
 ```python
 import dstack as ds
@@ -76,25 +78,25 @@ url = app.deploy("stocks")
 print(url)
 ```
 
-{% hint style="info" %}
-**Source Code:** [**https://github.com/dstackai/dstack-examples/blob/master/stocks/app.py**](https://github.com/dstackai/dstack-examples/blob/master/stocks/app.py)\*\*\*\*
-{% endhint %}
-
 If you run this code and click the URL printed to the output, you'll see the application:
 
 ![](.gitbook/assets/dstack_stocks.png)
 
 As you see, the user is prompted to choose a stock symbol to view how its price change from date to date.
 
+{% hint style="info" %}
+**Source Code:** [**https://github.com/dstackai/dstack-examples/blob/master/stocks/app.py**](https://github.com/dstackai/dstack-examples/blob/master/stocks/app.py)\*\*\*\*
+{% endhint %}
+
 {% hint style="success" %}
 **Live Gallery:** [**https://dstack.cloud/gallery/stocks**](https://dstack.cloud/gallery/minimal_app)\*\*\*\*
 {% endhint %}
 
 {% hint style="info" %}
-Note, deploying `dstack` application can be done from either Python scripts or Jupyter notebooks. If it's more convenient to use a `Jupyter` notebook, go for it.
+Note, deploying `dstack` application can be done from either Python scripts or Jupyter notebooks.
 {% endhint %}
 
-Now, to learn in more detail about what applications consist of and how to use all their features, proceed to the [Concepts](concepts/) page. See you there.
+Now that you've seen how easy it's to build and deploy a simple application, proceed to the [Concepts](concepts/) page to learn in more detail about what `dstack` applications consist of, and how to use all their features. 
 
 {% page-ref page="concepts/" %}
 
