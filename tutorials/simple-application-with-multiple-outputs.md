@@ -1,5 +1,15 @@
 # Simple Application with Multiple Outputs
 
+In this tutorial, we'll build an application that loads CSV data from a URL, and offers an interactive dashboard that lets the user browse through the data. 
+
+In this tutorial, we'll create a sidebar, put a few drop-down controls there \(one for selecting regions and another for selecting countries\). In the main area of the application, we'll put a table output with companies \(for the selected country\), a drop-down control to select a company, and a chart showing the licenses \(for the selected company\). 
+
+We'll use the `colspan` and `rowspan` attributes for each control to arrange controls over the grid layout.
+
+To make sure the data is cached and is not loaded on every interaction, we'll use the `dstack.cache()` annotation for the functions that load data.
+
+Here's the full code for the application:
+
 ```python
 import dstack as ds
 import pandas as pd
@@ -90,4 +100,8 @@ app.output(handler=company_output_handler, depends=[companies], colspan=6, rowsp
 url = app.deploy("layout")
 print(url)
 ```
+
+Now, if you run the code and open the application, you'll see the following:
+
+**`TODO:`** `Add screenshot`
 
