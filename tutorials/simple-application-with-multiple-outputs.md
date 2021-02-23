@@ -15,7 +15,7 @@ import dstack as ds
 import pandas as pd
 import plotly.express as px
 
-app = ds.app(columns=12)  # create an application; 10 columns width
+app = ds.app(columns=12)  # create an application; width - 12 columns
 
 
 # an utility function that loads the data
@@ -96,9 +96,10 @@ def company_output_handler(self, companies):
 # width – 6 columns; height - 6 rows
 app.output(handler=company_output_handler, depends=[companies], colspan=6, rowspan=6)
 
-# deploy the application with the name "stocks" and print its URL
-url = app.deploy("layout")
+# deploy the application with the name "tutorials/multiple_outputs" and print its URL
+url = app.deploy("tutorials/multiple_outputs")
 print(url)
+
 ```
 
 **`TODO:`** `Add a link to the source code`
@@ -106,4 +107,6 @@ print(url)
 Now, if you run the code and open the application, you'll see the following:
 
 **`TODO:`** `Add screenshot`
+
+**`TODO:`** `Guide step by step`
 
