@@ -4,212 +4,117 @@ description: Here's a more complex example of an application with a few tabs.
 
 # Simple Application with Multiple Tabs
 
-In this application, the user will see two tabs. In the first tab, the user will be prompted to choose a region and a country, then to see a list of companies and their data. The list of countries will depend on the selected region. In order to see the data, the user will have to confirm the selection by clicking the `Apply` button. In the second tab, the user will be able to see a chart with numbers of purchased licenses per year for the selected country.
+In this tutorial, we'll build an application that is very similar to the one that was covered in [Simple Application With Multiple Outputs](simple-application-with-multiple-outputs.md). However, instead of putting all controls together, we'll have multiple tabs. The application will still load CSV data from a URL and let the user of the application to browse through the data. 
 
-![](../.gitbook/assets/ds_single_multipage_app_companies.png)
+In the first tab, titled `"Companies"`,  we'll show a drop-down control for selecting a region, another one for selecting a country, and a table to show companies for the selected country.
 
-Here's the full code of the application:
+In the second tab, titled `"Licences"`,  we'll show a drop-down control to select a company, and a chart showing the licenses for the selected company. 
+
+To make sure the data is cached and is not loaded on every interaction, we'll use the `dstack.cache()` annotation for the functions that load data.
+
+Here's the full code for the application:
 
 ```python
-import dstack.controls as ctrl
 import dstack as ds
 import pandas as pd
 import plotly.express as px
 
+app = ds.app()  # create an instance of an application
 
-@ds.cache()
+
+# an utility function that loads the data
+@ds.cache()  # caching the result
 def get_data():
     return pd.read_csv("https://www.dropbox.com/s/cat8vm6lchlu5tp/data.csv?dl=1", index_col=0)
 
 
+# create a tab; width - 12 columns
+companies_tab = app.tab("Companies", columns=12)
+
+
+# an utility function that returns regions
+@ds.cache()  # caching the result
 def get_regions():
     df = get_data()
     return df["Region"].unique().tolist()
 
 
-def countries_handler(self: ctrl.ComboBox, regions: ctrl.ComboBox):
+# a drop-down control inside the sidebar showing regions
+regions = companies_tab.select(items=get_regions, label="Region", colspan=6, rowspan=1)
+
+
+# a handler that updates the countries drop-down based on the selected region
+def countries_handler(self, regions):
     df = get_data()
     self.items = df[df["Region"] == regions.value()]["Country"].unique().tolist()
 
 
-regions = ctrl.ComboBox(items=get_regions, label="Region")
-countries = ctrl.ComboBox(handler=countries_handler, label="Country", depends=[regions])
+# a drop-down control inside the sidebar showing countries based on the selected region
+countries = companies_tab.select(handler=countries_handler, label="Country", depends=[regions], colspan=6, rowspan=1)
 
 
-def country_output_handler(self: ctrl.Output, countries: ctrl.ComboBox):
+# a handler that updates the table output showing companies based on the selected country
+def country_output_handler(self, countries):
     df = get_data()
     self.data = df[df["Country"] == countries.value()]
 
 
-data_by_country_app = ds.app(controls=[regions, countries],
-                             outputs=[ctrl.Output(handler=country_output_handler, depends=[countries])])
+# a table output showing companies based on the selected country
+# width – 6 columns; height - 7 rows
+companies_tab.output(handler=country_output_handler, label="Companies", depends=[countries], colspan=12, rowspan=6)
+
+# create a tab; width - 12 columns
+licences_tab = app.tab("Licences", columns=12)
 
 
-def get_companies():
+# a handler that updates the companies drop-down control
+def get_companies_by_country(self):
     df = get_data()
-    return df["Company"].unique().tolist()
+    self.items = df["Company"].unique().tolist()
 
 
-companies = ctrl.ComboBox(items=get_companies, label="Company")
+# a drop-down control inside the main area showing companies based on the selected country
+# width – 6 columns; height - 1 row
+companies = licences_tab.select(handler=get_companies_by_country, label="Company", colspan=12, rowspan=1)
 
-def company_output_handler(self: ctrl.Output, companies: ctrl.ComboBox):
+
+# an utility function that returns company licenses
+@ds.cache()  # caching the result
+def get_companies(company):
     df = get_data()
-    row = df[df["Company"] == companies.value()].filter(["y2015", "y2016", "y2017", "y2018", "y2019"], axis=1)
-    row.rename(columns={"y2015": "2015", "y2016": "2016", "y2017": "2017", "y2018": "2018", "y2019": "2019"},
-               inplace=True)
-    col = row.transpose()
-    col.rename(columns={col.columns[0]: "Licenses"}, inplace=True)
-    fig = px.bar(col.reset_index(), x="index", y="Licenses", labels={"index": "Year"})
+    df = df[df["Company"] == company].filter(["y2015", "y2016", "y2017", "y2018", "y2019"], axis=1)
+    df.rename(columns={"y2015": "2015", "y2016": "2016", "y2017": "2017", "y2018": "2018", "y2019": "2019"},
+              inplace=True)
+    df = df.transpose()
+    df.rename(columns={df.columns[0]: "Licenses"}, inplace=True)
+    return df
+
+
+# a handler that updates the chart output based on the selected company
+def company_output_handler(self, companies):
+    company = companies.value()
+    df = get_companies(company)
+    fig = px.bar(df.reset_index(), x="index", y="Licenses", labels={"index": "Year"})
     fig.update(layout_showlegend=False)
     self.data = fig
+    self.label = company
 
 
-data_by_company_app = ds.app(controls=[companies],
-                             outputs=[ctrl.Output(handler=company_output_handler)])
+# a chart output showing licences based on the selected company
+# width – 12 columns; height - 6 rows
+licences_tab.output(handler=company_output_handler, depends=[companies], colspan=12, rowspan=6)
 
-frame = ds.frame("simple_multi_page_app")
-frame.add(data_by_country_app, params={"Companies": ds.tab()})
-frame.add(data_by_company_app, params={"Licenses": ds.tab()})
-result = frame.push()
-print(result.url)
+# deploy the application with the name "tutorials/multiple_tabs" and print its URL
+url = app.deploy("tutorials/multiple_tabs")
+print(url)
+
 ```
 
-{% hint style="success" %}
-**Live Gallery:** [**https://dstack.cloud/gallery/simple\_multi\_page\_app**](https://dstack.cloud/gallery/simple_multi_page_app)\*\*\*\*
-{% endhint %}
+**`TODO:`** `Add a link to the source code`
 
-Let's take a closer look at every step.
+Now, if you run the code and open the application, you'll see the following:
 
-In this example, for every tab, we create a separate application and push it along with the name of the tab within a single frame to the `dstack` server.
+**`TODO:`** `Add screenshot`
 
-Let's start with the first tab.
-
-**Data**
-
-First, we define a function `get_data` which fetches data from an external source and returns a pandas dataframe with this data.
-
-```python
-@ds.cache()
-def get_data():
-    return pd.read_csv("https://www.dropbox.com/s/cat8vm6lchlu5tp/data.csv?dl=1", index_col=0)
-```
-
-{% hint style="info" %}
-Note, in order to improve the performance of our application, we use the annotation `@dstack.cache`. This annotation wraps the function to make sure that the result of the function is cached, so when it's called the next time, the function is not called again. 
-{% endhint %}
-
-**User controls**
-
-Second, we define `get_regions` that returns regions that appear in the data. This function is going to be used to populate the values of the combo box `"Region"`.
-
-```python
-def get_regions():
-    df = get_data()
-    return df["Region"].unique().tolist()
-```
-
-Then, we define a function `countries_handler` that updates the combo box `Country` based on the selection of the combo box `Region`.
-
-```python
-def countries_handler(self: ctrl.ComboBox, regions: ctrl.ComboBox):
-    df = get_data()
-    self.data = df[df["Region"] == regions.value()]["Country"].unique().tolist()
-```
-
-After that, we define our combo boxes `Region` and `Country`. Notice, that the second combo box depends on the first combo box. This is specified by the attribute `depends` provided by `dstack.controls.Control` \(and its subclasses such as `dstack.controls.ComboBox`\).
-
-```python
-regions = ctrl.ComboBox(items=get_regions, label="Region")
-countries = ctrl.ComboBox(handler=countries_handler, label="Country", depends=[regions])
-```
-
-**Application output**
-
-Now, we can define the function `country_output_handler` that produces the output of our application based on selected values in our combo boxes.
-
-```python
-def country_output_handler(self: ctrl.Output, countries: ctrl.ComboBox):
-    df = get_data()
-    self.data = df[df["Country"] == countries.value()]
-```
-
-**Application**
-
-Finally, we create an application by using the `dstack.app()` function and passing our function `data_by_country_app` and binding its arguments to our controls `regions` and `countries`.
-
-```python
-data_by_country_app = ds.app(controls=[regions, countries],
-                             outputs=[ctrl.Output(handler=country_output_handler, depends=[countries])])
-```
-
-The application for the first tab is ready, let's move on and create the other one.
-
-**Data**
-
-We start by defining the function `get_companies`. This function is going to be used to populate the combo box `Company`.
-
-```python
-def get_companies():
-    df = get_data()
-    return df["Company"].unique().tolist()
-```
-
-**User controls**
-
-Then, we define this combo box:
-
-```python
-companies = ctrl.ComboBox(items=get_companies, label="Company")
-```
-
-**Application output**
-
-Then, we define a function `company_output_handler` that produces a Plotly chart with numbers of purchased licenses for the selected company grouped by the year.
-
-```python
-def company_output_handler(self: ctrl.Output, companies: ctrl.ComboBox):
-    df = get_data()
-    row = df[df["Company"] == companies.value()].filter(["y2015", "y2016", "y2017", "y2018", "y2019"], axis=1)
-    row.rename(columns={"y2015": "2015", "y2016": "2016", "y2017": "2017", "y2018": "2018", "y2019": "2019"},
-               inplace=True)
-    col = row.transpose()
-    col.rename(columns={col.columns[0]: "Licenses"}, inplace=True)
-    fig = px.bar(col.reset_index(), x="index", y="Licenses", labels={"index": "Year"})
-    fig.update(layout_showlegend=False)
-    self.data = fig
-```
-
-**Application**
-
-Now, we're ready to create the second application by using the `dstack.app()` function, where we pass our function `company_output_handler` and bind the name of its argument to the combo box.
-
-```text
-data_by_company_app = ds.app(controls=[companies],
-                             outputs=[ctrl.Output(handler=company_output_handler)])
-```
-
-#### Deploy applications
-
-Finally, we are ready to push both applications and tabs to the dstack server. Since we push more than one application, we have to first create a frame \(by using the `dstack.frame` function\), and then adding our applications \(by using the `dstack.stack.StackFrame.add` function\).
-
-```python
-frame = ds.frame("simple_multi_page_app")
-frame.add(data_by_country_app, params={"Companies": ds.tab()})
-frame.add(data_by_company_app, params={"Licenses": ds.tab()})
-```
-
-Notice, to associate an application with a tab, we use the attribute `params` of the `add` function. There, the name of the param is supposed to be the title of the tab. The value of the param must be set to `dstack.tab()`.
-
-The last thing is pushing the frame with `dstack.stack.StackFrame.push`.
-
-```python
-result = frame.push()
-print(result.url)
-```
-
-If we click the URL, we'll see the application. With this application, the user may switch between tabs, change the controls, and see the updating outputs.
-
-{% hint style="info" %}
-**Source Code:** [**https://github.com/dstackai/dstack-examples/tree/master/tabs**](https://github.com/dstackai/dstack-examples/tree/master/tabs)\*\*\*\*
-{% endhint %}
+**`TODO:`** `Guide step by step`
 
