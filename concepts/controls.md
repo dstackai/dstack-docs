@@ -917,27 +917,29 @@ The `Markdown` control can be used to display a markdown text. Here's the same e
 ```python
 import dstack as ds
 
-app = ds.app()  # create an instance of the application
+app = ds.app()  # Create an instance of the application
 
 
-# a handler that updates the markdown output based on the input text
+# A handler that updates the markdown output based on the input text
 def markdown_handler(self, name):
-    if len(name.text) > 0:
+    if name.text:
         self.text = "Hi, **" + name.text + "**!"
     else:
         self.text = "No name"
 
 
-# an input control
+# An input control
 name = app.input(label="What's your name?")
 
-# a markdown output that greets the users using the given name
+# A markdown output that greets the users using the given name
 app.markdown(handler=markdown_handler, depends=[name])
 
-# deploy the application with the name "controls/input" and print its URL
-url = app.deploy("controls/input")
+# Deploy the application with the name "controls/markdown" and print its URL
+url = app.deploy("controls/markdown")
 print(url)
 ```
+
+![](../.gitbook/assets/ds_markdown_1.png)
 
 Above, you see a `Markdown` control that displays the text based on the text specified in another control. Below is a more simple example, where the `Markdown` control just displays a static text:
 
@@ -954,7 +956,7 @@ url = app.deploy("markdown")
 print(url)
 ```
 
-**`TODO:`** `Add a screenshot`
+![](../.gitbook/assets/ds_markdown_2.png)
 
 Here's the list of arguments of the `dstack.Application.markdown()` function:
 
