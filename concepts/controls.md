@@ -65,7 +65,7 @@ Here's the example of using a handler:
 # A handler that updates the plot based on the selected stock
 def output_handler(self, stock):
     # A plotly line chart where the X axis is date and Y is the stock's price
-    self.data = px.line(get_data(), x='date', y=stock.value())
+    self.data = px.line(get_data(), x="date", y=stock.value())
 
 
 # A plotly chart output
@@ -226,10 +226,10 @@ The `Input` control can be used to enter text:
 ```python
 import dstack as ds
 
-app = ds.app()  # create an instance of the application
+app = ds.app()  # Create an instance of the application
 
 
-# a handler that updates the markdown output based on the input text
+# A handler that updates the markdown output based on the input text
 def markdown_handler(self, name):
     if len(name.text) > 0:
         self.text = "Hi, **" + name.text + "**!"
@@ -237,13 +237,13 @@ def markdown_handler(self, name):
         self.text = "No name"
 
 
-# an input control
+# An input control
 name = app.input(label="What's your name?")
 
-# a markdown output that greets the users using the given name
+# A markdown output that greets the users using the given name
 app.markdown(handler=markdown_handler, depends=[name])
 
-# deploy the application with the name "controls/input" and print its URL
+# Deploy the application with the name "controls/input" and print its URL
 url = app.deploy("controls/input")
 print(url)
 ```
@@ -308,16 +308,6 @@ Here's the list of arguments of the `dstack.Application.input()` function:
       </td>
       <td style="text-align:left">The other controls this control depends on.</td>
       <td style="text-align:left">No</td>
-    </tr>
-    <tr>
-      <td style="text-align:left"><code>require_apply</code>
-      </td>
-      <td style="text-align:left"><code>bool</code>
-      </td>
-      <td style="text-align:left"><code>True</code> if the field requires an <code>Apply</code> button to be
-        clicked for the application to update the output. <code>True</code> by default.</td>
-      <td
-      style="text-align:left">No</td>
     </tr>
     <tr>
       <td style="text-align:left"><code>colspan</code>
@@ -508,10 +498,10 @@ The `Checkbox` control can used to select or unselect a certain `boolean` proper
 ```python
 import dstack as ds
 
-app = ds.app()  # create an instance of the application
+app = ds.app()  # Create an instance of the application
 
 
-# a handler that updates the label of the checkbox based on wether it's selected or not
+# A handler that updates the label of the checkbox based on wether it's selected or not
 def checkbox_handler(self):
     if self.selected:
         self.label = "Selected"
@@ -519,10 +509,10 @@ def checkbox_handler(self):
         self.label = "Not selected"
 
 
-# a checkbox control
+# A checkbox control
 name = app.checkbox(handler=checkbox_handler)
 
-# deploy the application with the name "controls/checkbox" and print its URL
+# Deploy the application with the name "controls/checkbox" and print its URL
 url = app.deploy("controls/checkbox")
 print(url)
 ```
@@ -618,28 +608,28 @@ The `Slider` control can be used to select a number out of a given range. It sup
 import dstack as ds
 import plotly.express as px
 
-app = ds.app()  # create an instance of the application
+app = ds.app()  # Create an instance of the application
 
 
-# an utility function that loads the data
+# An utility function that loads the data
 def get_data():
     return px.data.gapminder()
 
 
-# a handler that updates the plot output based on the selected year
+# A handler that updates the plot output based on the selected year
 def output_handler(self, year):
     value = year.value()  # the selected year
     self.data = px.scatter(get_data().query("year==" + str(value)), x="gdpPercap", y="lifeExp",
                            size="pop", color="country", hover_name="country", log_x=True, size_max=60)
 
 
-# a slider control that prompts to select a year
+# A slider control that prompts to select a year
 slider = app.slider(values=get_data()["year"].unique().tolist())
 
-# an output control that shows the chart
+# An output control that shows the chart
 app.output(handler=output_handler, depends=[slider])
 
-# deploy the application with the name "controls/" and print its URL
+# Deploy the application with the name "controls/slider" and print its URL
 url = app.deploy("controls/slider")
 print(url)
 ```
@@ -762,16 +752,16 @@ Here's the list of arguments of the `dstack.Application.slider()` function:
 
 ### Uploader
 
-The `Uploader` control can be used to upload single or multple files and access their content. Here's an example:
+The `Uploader` control can be used to upload single or multiple files and access their content. Here's an example:
 
 ```python
 import dstack as ds
 import pandas as pd
 
-app = ds.app()  # create an instance of the application
+app = ds.app()  # Create an instance of the application
 
 
-# a handler that loads a dataframe from the content of the uploaded CSV file and passes it to the output
+# A handler that loads a dataframe from the content of the uploaded CSV file and passes it to the output
 def app_handler(self, uploader):
     if len(uploader.uploads) > 0:
         with uploader.uploads[0].open() as f:
@@ -782,13 +772,13 @@ def app_handler(self, uploader):
         self.data = None
 
 
-# a file uploader control
+# A file uploader control
 uploader = app.uploader(label="Select a CSV file")
 
-# an output control that shows the content of the uploaded file
+# An output control that shows the content of the uploaded file
 app.output(handler=app_handler, depends=[uploader])
 
-# deploy the application with the name "controls/select" and print its URL
+# Deploy the application with the name "controls/select" and print its URL
 url = app.deploy("controls/file_uploader")
 print(url)
 ```
@@ -918,12 +908,12 @@ Above, you see a `Markdown` control that displays the text based on the text spe
 ```python
 import dstack as ds
 
-app = ds.app()  # create an instance of the application
+app = ds.app()  # Create an instance of the application
 
-# a markdown output
+# A markdown output
 app.markdown(text="Hello, **World!**")
 
-# deploy the application with the name "markdown" and print its URL
+# Deploy the application with the name "markdown" and print its URL
 url = app.deploy("markdown")
 print(url)
 ```
@@ -988,6 +978,16 @@ Here's the list of arguments of the `dstack.Application.markdown()` function:
       </td>
       <td style="text-align:left">The other controls this control depends on.</td>
       <td style="text-align:left">No</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>requires_apply</code>
+      </td>
+      <td style="text-align:left"><code>bool</code>
+      </td>
+      <td style="text-align:left"><code>True</code> if the field requires an <code>Apply</code> button to be
+        clicked for the control to update. <code>False</code> by default.</td>
+      <td
+      style="text-align:left">No</td>
     </tr>
     <tr>
       <td style="text-align:left"><code>colspan</code>
@@ -1098,6 +1098,16 @@ Here's the list of arguments of the `dstack.Application.output()` function:
       </td>
       <td style="text-align:left">The other controls this control depends on.</td>
       <td style="text-align:left">No</td>
+    </tr>
+    <tr>
+      <td style="text-align:left"><code>requires_apply</code>
+      </td>
+      <td style="text-align:left"><code>bool</code>
+      </td>
+      <td style="text-align:left"><code>True</code> if the field requires an <code>Apply</code> button to be
+        clicked for the control to update. <code>False</code> by default.</td>
+      <td
+      style="text-align:left">No</td>
     </tr>
     <tr>
       <td style="text-align:left"><code>colspan</code>
