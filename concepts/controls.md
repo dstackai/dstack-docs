@@ -171,19 +171,16 @@ Now, if you open the application, you'll see the following:
 
 ### Require Apply
 
-By default, the application triggers the application update \(including updating outputs\) every time the user changes anything. If you'd like the application to update only if the user clicks `Apply`, you can invoke the following code when creating the application:
+By default, the application triggers the application update \(including updating outputs\) every time the user changes anything. If you'd like any control to update only if the user clicks `Apply`, you can set `requires_apply=True` when you create a control:
 
 ```python
-app = ds.app(require_apply=True)
+# An output that shows companies based on the selected country
+app.output(handler=output_handler, depends=[countries], require_apply=True)
 ```
 
-If you open the application, you'll see the following:
+Now, if you open the application, you'll see the following:
 
-![](../.gitbook/assets/ds_dependant_controls_app_apply.png)
-
-By default, most controls are updated immediately. An exception is outputs, which are updated only after the user clicks `Apply`. If you want to change this behavior, you can do that by changing the `require_apply` attribute when creating a control:
-
-**`TODO:`** `Add code snippet`
+**`TODO:`** `Add a screenshot`
 
 ### Layout
 
