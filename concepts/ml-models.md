@@ -28,7 +28,7 @@ print(url)
 
 Now, if you click the URL, it will open the following page:
 
-**`TODO:`** `Add a screenshot`
+![](../.gitbook/assets/ds_model.png)
 
 Here, you can see a code snippet of how to pull the model from an application or from anywhere else:
 
