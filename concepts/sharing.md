@@ -32,7 +32,7 @@ Push models and applications as you normally do. They'll be pushed to [dstack.cl
 
 If you'd like to change the visibility settings of your applications or models, you can do it by clicking the `Share` button on the page of the corresponding application or model. You can change the access level, and if you select `For selected users`\(means it's private\), you can send invites with access to this application or model to any existing user or to any email.
 
-![](../.gitbook/assets/ds_cloud_share.png)
+**`TODO:`** `Add a screenshot`
 
-
+**`TODO:`** `Add a link to the gallery`
 

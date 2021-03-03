@@ -80,15 +80,15 @@ print(url)
 
 If you run this code and click the URL printed to the output, you'll see the application:
 
-**`TODO:`** `Add a screenshot`
+![](.gitbook/assets/ds_stocks%20%281%29.png)
+
+**`TODO:`** `Add a link to gallery`
 
 As you see, the user is prompted to choose a stock symbol to view how its price change from date to date.
 
 {% hint style="info" %}
 **Source Code:** [**https://github.com/dstackai/dstack-examples/blob/master/stocks/app.py**](https://github.com/dstackai/dstack-examples/blob/master/stocks/app.py)\*\*\*\*
 {% endhint %}
-
-**`TODO:`** `Add a link to gallery`
 
 {% hint style="info" %}
 Note, deploying `dstack` application can be done from both **Python scripts** and **Jupyter notebooks**.

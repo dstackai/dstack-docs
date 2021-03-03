@@ -182,6 +182,10 @@ Now, if you open the application, you'll see the following:
 
 **`TODO:`** `Add a screenshot`
 
+**`TODO:`** `Add a link to gallery`
+
+**`TODO:`** `Add a link to GitHub repo`
+
 ### Layout
 
 Controls may be visually arranged within the application using the `layout` system. Currently, `dstack` supports only the `"grid"` layout. This means an application is divided into columns and rows, and controls may take up any number of these columns and rows.

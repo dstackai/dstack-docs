@@ -11,33 +11,39 @@ description: Learn how to use ML registry and how to use ML models in applicatio
 Here's a very simple example of how to push a model to `dstack`:
 
 ```python
-from sklearn import datasets
-from sklearn import svm
+from sklearn.svm import SVC
+from sklearn.multiclass import OneVsRestClassifier
+from sklearn.preprocessing import LabelBinarizer
 import dstack as ds
 
-digits = datasets.load_digits()
-clf = svm.SVC(gamma=0.001, C=100.)
-clf.fit(digits.data[:-1], digits.target[:-1])
+X = [[1, 2], [2, 4], [4, 5], [3, 2], [3, 1]]
+y = [0, 0, 1, 1, 2]
 
-url = ds.push("clf_app", clf)
+classif = OneVsRestClassifier(estimator=SVC(random_state=0))
+classif.fit(X, y)
+
+url = ds.push("classif", classif)
 print(url)
 ```
 
 Now, if you click the URL, it will open the following page:
 
-![](../.gitbook/assets/ds_-clf_app.png)
+**`TODO:`** `Add a screenshot`
 
 Here, you can see a code snippet of how to pull the model from an application or from anywhere else:
 
 ```python
 import dstack as ds
 
-model = ds.pull('/dstack/clf_app')
+X = [[1, 2], [2, 4], [4, 5], [3, 2], [3, 1]]
+
+classif = ds.pull('/dstack/classif')
+classif.predict(X)
 ```
 
 Also, here you can edit a `README.md` file to provide documentation on how to use the model. 
 
-Check out the following tutorial on how to build an application that uses a simple ML model:
+Check out the following tutorial that trains a more complex ML model and uses it in a `dstack` application:
 
 {% page-ref page="../tutorials/simple-application-with-scikit-learn-model.md" %}
 
