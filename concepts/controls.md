@@ -128,7 +128,7 @@ print(url)
 
 If you run this code and open the application, you'll see the following:
 
-**`TODO:`** `Add screenshot`
+![](../.gitbook/assets/ds_select_depends%20%281%29.png)
 
 ### Sidebar
 
@@ -167,7 +167,11 @@ print(url)
 
 Now, if you open the application, you'll see the following:
 
-**`TODO:`** `Add screenshot`
+![](../.gitbook/assets/ds_stocks_sidebar.png)
+
+`TODO: Add a link to the gallery`
+
+`TODO: Add a link to the GitHub repo`
 
 ### Require Apply
 
@@ -180,7 +184,11 @@ app.output(handler=output_handler, depends=[countries], require_apply=True)
 
 Now, if you open the application, you'll see the following:
 
-**`TODO:`** `Add a screenshot`
+![](../.gitbook/assets/ds_apply_1.png)
+
+Now, if you click `Apply`, you'll see the output updated:
+
+![](../.gitbook/assets/ds_apply_2.png)
 
 **`TODO:`** `Add a link to gallery`
 
@@ -211,7 +219,7 @@ print(url)
 
 If we open the application, we'll see the following:
 
-**`TODO:`** `Add screenshot`
+![](../.gitbook/assets/ds_layout_1.png)
 
 If you don't specify `columns` within `dstack.app()`, it will be set to `12`.
 
@@ -252,7 +260,11 @@ url = app.deploy("controls/input")
 print(url)
 ```
 
-**`TODO:`** `Add screenshot`
+![](../.gitbook/assets/ds_input.png)
+
+**`TODO:`** `Add a link to the gallery`
+
+**`TODO:`** `Add a link to the GitHub repo`
 
 Here's the list of arguments of the `dstack.Application.input()` function:
 
@@ -371,7 +383,11 @@ url = app.deploy("stocks")
 print(url)
 ```
 
-**`TODO:`** `Add a screenshot`
+![](../.gitbook/assets/ds_stocks%20%281%29.png)
+
+**`TODO:`** `Add a link to the gallery`
+
+**`TODO:`** `Add a link to the GitHub repo`
 
 Here's the list of arguments of the `dstack.Application.select()` function:
 
@@ -521,7 +537,11 @@ url = app.deploy("controls/checkbox")
 print(url)
 ```
 
-**`TODO:`** `Add a screenshot`
+![](../.gitbook/assets/ds_checkbox.png)
+
+**`TODO:`** `Add a link to the gallery`
+
+**`TODO:`** `Add a link to the GitHub repo`
 
 Here's the list of arguments of the `dstack.Application.checkbox()` function:
 
@@ -638,7 +658,11 @@ url = app.deploy("controls/slider")
 print(url)
 ```
 
-**`TODO:`** `Add a screenshot`
+![](../.gitbook/assets/ds_slider.png)
+
+**`TODO:`** `Add a link to the gallery`
+
+**`TODO:`** `Add a link to the GitHub repo`
 
 Here's the list of arguments of the `dstack.Application.slider()` function:
 
@@ -777,17 +801,25 @@ def app_handler(self, uploader):
 
 
 # A file uploader control
-uploader = app.uploader(label="Select a CSV file")
+uploader = app.uploader(label="Select a CSV file", colspan=12)
 
 # An output control that shows the content of the uploaded file
 app.output(handler=app_handler, depends=[uploader])
 
-# Deploy the application with the name "controls/select" and print its URL
-url = app.deploy("controls/file_uploader")
+# Deploy the application with the name "controls/uploader" and print its URL
+url = app.deploy("controls/uploader")
 print(url)
 ```
 
-**`TODO:`** `Add a screenshot`
+![](../.gitbook/assets/ds_uploader_1.png)
+
+Now, if you upload a CSV file, you'll see the following:
+
+![](../.gitbook/assets/ds_uploader_2.png)
+
+**`TODO:`** `Add a link to the gallery`
+
+**`TODO:`** `Add a link to the GitHub repo`
 
 Here's the list of arguments of the `dstack.Application.uploader()` function:
 
