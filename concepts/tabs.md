@@ -32,11 +32,17 @@ print(url)
 
 If you open the application, you'll see the following:
 
-**`TODO:`** `Add a screenshot`
+![](../.gitbook/assets/ds_tabs.png)
 
 **`TODO:`** `Add a link to gallery`
 
+**`TODO:`** `Add a link ot the GitHub repo`
+
 When you invoke the `dstack.Application.tab()` function, you get an instance of `dstack.ApplicationBase` which has pretty much all functions that `dstack.Application` has so you can change its layout, and add controls.
 
-**`TODO:`** `Add a link to the tutorial with multiple tabs`
+Check out the following tutorial that uses a bit more complex layouts within multiple tabs:
+
+{% page-ref page="../tutorials/complex-application.md" %}
+
+
 
