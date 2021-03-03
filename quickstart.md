@@ -80,7 +80,7 @@ print(url)
 
 If you run this code and click the URL printed to the output, you'll see the application:
 
-![](.gitbook/assets/ds_stocks.png)
+**`TODO:`** `Add a screenshot`
 
 As you see, the user is prompted to choose a stock symbol to view how its price change from date to date.
 

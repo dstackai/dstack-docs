@@ -128,7 +128,7 @@ print(url)
 
 If you run this code and open the application, you'll see the following:
 
-![](../.gitbook/assets/ds_select_depends.png)
+**`TODO:`** `Add screenshot`
 
 ### Sidebar
 
