@@ -14,7 +14,7 @@ Note, because of this change, the update is not backward compatible. If you upda
 
 ### dstack 0.6.2, February 2021
 
-Bugfixes
+* Bugfixes
 
 ### dstack 0.6.1, February 2021
 
