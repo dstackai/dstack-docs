@@ -46,7 +46,7 @@ print(url)
 
 If we run the code above and open the link, we'll see the following application:
 
-**`TODO:`** `Add a screenshot`
+![](../.gitbook/assets/ds_stocks%20%281%29.png)
 
 ### Control State
 
