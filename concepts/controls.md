@@ -18,57 +18,57 @@ Here's a simple example:
 import dstack as ds
 import plotly.express as px
 
-app = ds.app()  # create an instance of the application
+app = ds.app()  # Create an instance of the application
 
 
-# an utility function that loads the data
+# An utility function that loads the data
 def get_data():
     return px.data.stocks()
 
 
-# a drop-down control that shows stock symbols
+# A drop-down control that shows stock symbols
 stock = app.select(items=get_data().columns[1:].tolist())
 
 
-# a handler that updates the plot based on the selected stock
+# A handler that updates the plot based on the selected stock
 def output_handler(self, stock):
-    # a plotly line chart where the X axis is date and Y is the stock's price
+    # A plotly line chart where the X axis is date and Y is the stock's price
     self.data = px.line(get_data(), x='date', y=stock.value())
 
 
-# a plotly chart output
+# A plotly chart output
 app.output(handler=output_handler, depends=[stock])
 
-# deploy the application with the name "stocks" and print its URL
+# Deploy the application with the name "stocks" and print its URL
 url = app.deploy("stocks")
 print(url)
 ```
 
 If we run the code above and open the link, we'll see the following application:
 
-![](../.gitbook/assets/dstack_stocks.png)
+![](../.gitbook/assets/ds_stocks.png)
 
 ### Control State
 
-As you saw above you can initialize a control via either setting the initial state of the control \(e.g. by setting `items` to `select`\), or by setting a `handler` \(as we did above for `output`\). 
+As you saw above, you can initialize a control by setting either the initial state of the control \(e.g. by setting `items` to `select`\), or a `handler` \(as we did above for `output`\). 
 
 Here's the example of setting the state directly \(note, you can pass values or even a function that returns them\):
 
 ```python
-# a drop-down control that shows stock symbols
+# A drop-down control that shows stock symbols
 stock = app.select(items=get_data().columns[1:].tolist())
 ```
 
 Here's the example of using a handler:
 
 ```python
-# a handler that updates the plot based on the selected stock
+# A handler that updates the plot based on the selected stock
 def output_handler(self, stock):
-    # a plotly line chart where the X axis is date and Y is the stock's price
+    # A plotly line chart where the X axis is date and Y is the stock's price
     self.data = px.line(get_data(), x='date', y=stock.value())
 
 
-# a plotly chart output
+# A plotly chart output
 app.output(handler=output_handler, depends=[stock])
 ```
 
@@ -82,53 +82,53 @@ Now, let's look at a more complicated example, where the items of the drop-down 
 import dstack as ds
 import pandas as pd
 
-app = ds.app()  # create an instance of the application
+app = ds.app()  # Create an instance of the application
 
 
-# an utility function that loads the data
+# An utility function that loads the data
 def get_data():
     return pd.read_csv("https://www.dropbox.com/s/cat8vm6lchlu5tp/data.csv?dl=1", index_col=0)
 
 
-# an utility function that returns regions
+# An utility function that returns regions
 def get_regions():
     df = get_data()
     return df["Region"].unique().tolist()
 
 
-# a drop-down control that shows regions
+# A drop-down control that shows regions
 regions = app.select(items=get_regions, label="Region")
 
 
-# a handler that updates the drop-down with counties based on the selected region
+# A handler that updates the drop-down with counties based on the selected region
 def countries_handler(self, regions):
     region = regions.value()  # the selected region
     df = get_data()
     self.items = df[df["Region"] == region]["Country"].unique().tolist()
 
 
-# a drop-down control that shows countries
+# A drop-down control that shows countries
 countries = app.select(handler=countries_handler, label="Country", depends=[regions])
 
 
-# a handler that updates the table output based on the selected country
+# A handler that updates the table output based on the selected country
 def output_handler(self, countries):
     country = countries.value()  # the selected country 
     df = get_data()
     self.data = df[df["Country"] == country]  # we assign a pandas dataframe here to self.data
 
 
-# an output that shows companies based on the selected country
+# An output that shows companies based on the selected country
 app.output(handler=output_handler, depends=[countries])
 
-# deploy the application with the name "dependant_control" and print its URL
+# Deploy the application with the name "dependant_control" and print its URL
 url = app.deploy("dependant_control")
 print(url)
 ```
 
 If you run this code and open the application, you'll see the following:
 
-![](../.gitbook/assets/ds_dependant_controls_app_open_popup.png)
+![](../.gitbook/assets/ds_select_depends.png)
 
 ### Sidebar
 
