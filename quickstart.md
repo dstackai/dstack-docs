@@ -80,7 +80,7 @@ print(url)
 
 If you run this code and click the URL printed to the output, you'll see the application:
 
-![](.gitbook/assets/dstack_stocks.png)
+![](.gitbook/assets/ds_stocks.png)
 
 As you see, the user is prompted to choose a stock symbol to view how its price change from date to date.
 
@@ -88,12 +88,10 @@ As you see, the user is prompted to choose a stock symbol to view how its price 
 **Source Code:** [**https://github.com/dstackai/dstack-examples/blob/master/stocks/app.py**](https://github.com/dstackai/dstack-examples/blob/master/stocks/app.py)\*\*\*\*
 {% endhint %}
 
-{% hint style="success" %}
-**Live Gallery:** [**https://dstack.cloud/gallery/stocks**](https://dstack.cloud/gallery/minimal_app)\*\*\*\*
-{% endhint %}
+**`TODO:`** `Add a link to gallery`
 
 {% hint style="info" %}
-Note, deploying `dstack` application can be done from either Python scripts or Jupyter notebooks.
+Note, deploying `dstack` application can be done from both **Python scripts** and **Jupyter notebooks**.
 {% endhint %}
 
 Now that you've seen how easy it's to build and deploy a simple application, proceed to the [Concepts](concepts/) page to learn in more detail about what `dstack` applications consist of, and how to use all their features. 
