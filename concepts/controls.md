@@ -33,7 +33,7 @@ stock = app.select(items=get_data().columns[1:].tolist())
 # A handler that updates the plot based on the selected stock
 def output_handler(self, stock):
     # A plotly line chart where the X axis is date and Y is the stock's price
-    self.data = px.line(get_data(), x='date', y=stock.value())
+    self.data = px.line(get_data(), x="date", y=stock.value())
 
 
 # A plotly chart output

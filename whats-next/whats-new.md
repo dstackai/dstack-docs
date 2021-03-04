@@ -1,5 +1,9 @@
 # What's New
 
+### dstack 0.6.4, March 2021
+
+* Bugfixes
+
 ### dstack 0.6.3, March 2021
 
 * The update introduces the brand new API for building applications. The new API is much easier to use. Please check up the updated [Quickstart](../quickstart.md) and [Controls](../concepts/controls.md) pages to learn about the new API. 
