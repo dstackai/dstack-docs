@@ -1,41 +1,26 @@
 # Table of contents
 
-* [What is dstack?](README.md)
-* [GitHub](https://github.com/dstackai/dstack)
-* [Home Page](http://dstack.ai)
-* [Discord Chat](https://discord.gg/8xfhEYa)
-
-## Getting Started <a id="open-source"></a>
-
----
-
-* [Installation](installation.md)
-* [Stacks](pushing-visualizations.md)
-* [Dashboards](dashboards.md)
-* [Jobs](jobs.md)
-
-## Tutorials and Guides <a id="tutorials"></a>
-
-* [Building Interactive Dashboards](tutorials/dashboards-tutorial.md)
-* [Using Datasets](tutorials/datasets.md)
-* [Using Visualisations](tutorials/plotting-libraries.md)
-* [Using Machine Learning Models](tutorials/machine-learning-models/README.md)
-  * [Scikit-learn](tutorials/machine-learning-models/scikit-learn.md)
-  * [PyTorch](tutorials/machine-learning-models/pytorch.md)
-  * [Tensorflow](tutorials/machine-learning-models/tensorflow.md)
-
-## API Reference <a id="api-documentation"></a>
-
-* [Python](api-documentation/python.md)
-* [R](api-documentation/r.md)
-* [CLI](api-documentation/cli.md)
-* [Docker](api-documentation/docker.md)
-
-## dstack.ai Cloud <a id="in-cloud"></a>
-
-* [Registration](in-cloud/cloud-registration.md)
-* [Configuration](in-cloud/installation.md)
-* [Collaboration](in-cloud/collaboration.md)
-* [FAQ](in-cloud/faq.md)
-* [Troubleshooting](in-cloud/troubleshooting.md)
+* [👋 Introduction](README.md)
+* [🚀 Quickstart](quickstart.md)
+* [🧩 Concepts](concepts/README.md)
+  * [Controls](concepts/controls.md)
+  * [Tabs](concepts/tabs.md)
+  * [Progress](concepts/progress.md)
+  * [Caching](concepts/caching.md)
+  * [ML Models](concepts/ml-models.md)
+  * [Dependencies](concepts/dependencies.md)
+  * [Logging](concepts/logging.md)
+  * [Sharing](concepts/sharing.md)
+* [🪁 Tutorials](tutorials/README.md)
+  * [Simple Application with Multiple Outputs](tutorials/simple-application-with-multiple-outputs.md)
+  * [Simple Application with Multiple Tabs](tutorials/complex-application.md)
+  * [Simple Application with Dependencies](tutorials/simple-application-with-dependencies.md)
+  * [Simple Application with a Scikit-learn ML Model](tutorials/simple-application-with-scikit-learn-model.md)
+* [📕 Reference](reference/README.md)
+  * [Docker](reference/docker.md)
+* [🤔 What's Next?](whats-next/README.md)
+  * [FAQ](whats-next/faq.md)
+  * [Feedback](whats-next/feedback.md)
+  * [Roadmap](whats-next/roadmap.md)
+  * [What's New](whats-next/whats-new.md)
 
