@@ -5,7 +5,7 @@
 Installing and running `dstack` is very easy:
 
 ```bash
-pip install dstack==0.6.4
+pip install --index-url https://test.pypi.org/simple/ --upgrade --no-cache-dir --extra-index-url=https://pypi.org/simple/ dstack==0.6.3.dev19
 dstack server start
 ```
 
@@ -82,9 +82,7 @@ If you run this code and click the URL printed to the output, you'll see the app
 
 ![](.gitbook/assets/ds_stocks%20%281%29.png)
 
-{% hint style="success" %}
-**`Live Demo:`** [**`https://dstack.cloud/gallery/stocks`**](https://dstack.cloud/gallery/stocks)**\`\`**
-{% endhint %}
+**`TODO:`** `Add a link to gallery`
 
 As you see, the user is prompted to choose a stock symbol to view how its price change from date to date.
 
@@ -92,8 +90,8 @@ As you see, the user is prompted to choose a stock symbol to view how its price 
 **Source Code:** [**https://github.com/dstackai/dstack-examples/blob/master/stocks/app.py**](https://github.com/dstackai/dstack-examples/blob/master/stocks/app.py)\*\*\*\*
 {% endhint %}
 
-{% hint style="success" %}
-Note, deploying a`dstack` application can be done from both **Python scripts** and **Jupyter notebooks**.
+{% hint style="info" %}
+Note, deploying `dstack` application can be done from both **Python scripts** and **Jupyter notebooks**.
 {% endhint %}
 
 Now that you've seen how easy it's to build and deploy a simple application, proceed to the [Concepts](concepts/) page to learn in more detail about what `dstack` applications consist of, and how to use all their features. 

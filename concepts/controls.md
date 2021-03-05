@@ -48,14 +48,6 @@ If we run the code above and open the link, we'll see the following application:
 
 ![](../.gitbook/assets/ds_stocks%20%281%29.png)
 
-{% hint style="success" %}
-**`Live Demo:`** [**`https://dstack.cloud/gallery/stocks`**](https://dstack.cloud/gallery/stocks)**\`\`**
-{% endhint %}
-
-{% hint style="info" %}
-**Source Code:**  [**https://github.com/dstackai/dstack-examples/tree/master/stocks**](https://github.com/dstackai/dstack-examples/tree/master/stocks)\*\*\*\*
-{% endhint %}
-
 ### Control State
 
 As you saw above, you can initialize a control by setting either the initial state of the control \(e.g. by setting `items` to `select`\), or a `handler` \(as we did above for `output`\). 
@@ -138,14 +130,6 @@ If you run this code and open the application, you'll see the following:
 
 ![](../.gitbook/assets/ds_select_depends%20%281%29.png)
 
-{% hint style="success" %}
-**`Live Demo:`** [**`https://dstack.cloud/gallery/controls/select_depends`**](https://dstack.cloud/gallery/controls/select_depends)**\`\`**
-{% endhint %}
-
-{% hint style="info" %}
-**Source Code:** [**https://github.com/dstackai/dstack-examples/blob/master/controls/select\_depends.py**](https://github.com/dstackai/dstack-examples/blob/master/controls/select_depends.py)\*\*\*\*
-{% endhint %}
-
 ### Sidebar
 
 By default, all controls are placed in the main area. Sometimes, it may be useful to place certain control in a sidebar. To do that, you have to use the `dstack.Application.sidebar()` function. Here's a very simple example:
@@ -185,13 +169,9 @@ Now, if you open the application, you'll see the following:
 
 ![](../.gitbook/assets/ds_stocks_sidebar.png)
 
-{% hint style="success" %}
-**`Live Demo:`** [**`https://dstack.cloud/gallery/stocks_sidebar`**](https://dstack.cloud/gallery/stocks_sidebar)**\`\`**
-{% endhint %}
+`TODO: Add a link to the gallery`
 
-{% hint style="info" %}
-**Source Code:** [**https://github.com/dstackai/dstack-examples/blob/master/controls/select\_depends.py**](https://github.com/dstackai/dstack-examples/blob/master/stocks/app_sidebar.py)\*\*\*\*
-{% endhint %}
+`TODO: Add a link to the GitHub repo`
 
 ### Require Apply
 
@@ -210,13 +190,9 @@ Now, if you click `Apply`, you'll see the output updated:
 
 ![](../.gitbook/assets/ds_apply_2.png)
 
-{% hint style="success" %}
-**`Live Demo:`** [**`https://dstack.cloud/gallery/controls/select_depends_apply`**](https://dstack.cloud/gallery/controls/select_depends_apply)**\`\`**
-{% endhint %}
+**`TODO:`** `Add a link to gallery`
 
-{% hint style="info" %}
-**Source Code:** [**https://github.com/dstackai/dstack-examples/blob/master/controls/select\_depends\_apply.py**](https://github.com/dstackai/dstack-examples/blob/master/controls/select_depends_apply.py)\*\*\*\*
-{% endhint %}
+**`TODO:`** `Add a link to GitHub repo`
 
 ### Layout
 
@@ -246,14 +222,6 @@ If we open the application, we'll see the following:
 ![](../.gitbook/assets/ds_layout_1.png)
 
 If you don't specify `columns` within `dstack.app()`, it will be set to `12`.
-
-{% hint style="success" %}
-**`Live Demo:`** [**`https://dstack.cloud/gallery/layout_1`**](https://dstack.cloud/gallery/layout_1)**\`\`**
-{% endhint %}
-
-{% hint style="info" %}
-**Source Code:** [**https://github.com/dstackai/dstack-examples/blob/master/layouts/layout\_1.py**](https://github.com/dstackai/dstack-examples/blob/master/layouts/layout_1.py)\*\*\*\*
-{% endhint %}
 
 {% hint style="info" %}
 The sidebar just like the main area also uses the `"grid"` layout. However, by default, it has `2` columns instead of `12`. 
@@ -294,13 +262,9 @@ print(url)
 
 ![](../.gitbook/assets/ds_input.png)
 
-{% hint style="success" %}
-**`Live Demo:`** [**`https://dstack.cloud/gallery/controls/input`**](https://dstack.cloud/gallery/controls/input)**\`\`**
-{% endhint %}
+**`TODO:`** `Add a link to the gallery`
 
-{% hint style="info" %}
-**Source Code:** [**https://github.com/dstackai/dstack-examples/blob/master/controls/input.py**](https://github.com/dstackai/dstack-examples/blob/master/controls/input.py)\*\*\*\*
-{% endhint %}
+**`TODO:`** `Add a link to the GitHub repo`
 
 Here's the list of arguments of the `dstack.Application.input()` function:
 
@@ -421,13 +385,9 @@ print(url)
 
 ![](../.gitbook/assets/ds_stocks%20%281%29.png)
 
-{% hint style="success" %}
-**`Live Demo:`** [**`https://dstack.cloud/gallery/controls/select`**](https://dstack.cloud/gallery/controls/select)**\`\`**
-{% endhint %}
+**`TODO:`** `Add a link to the gallery`
 
-{% hint style="info" %}
-**Source Code:** [**https://github.com/dstackai/dstack-examples/blob/master/controls/select\_app.py**](https://github.com/dstackai/dstack-examples/blob/master/controls/select_app.py)\*\*\*\*
-{% endhint %}
+**`TODO:`** `Add a link to the GitHub repo`
 
 Here's the list of arguments of the `dstack.Application.select()` function:
 
@@ -579,13 +539,9 @@ print(url)
 
 ![](../.gitbook/assets/ds_checkbox.png)
 
-{% hint style="success" %}
-**`Live Demo:`** [**`https://dstack.cloud/gallery/controls/checkbox`**](https://dstack.cloud/gallery/controls/checkbox)**\`\`**
-{% endhint %}
+**`TODO:`** `Add a link to the gallery`
 
-{% hint style="info" %}
-**Source Code:** [**https://github.com/dstackai/dstack-examples/blob/master/controls/checkbox.py**](https://github.com/dstackai/dstack-examples/blob/master/controls/checkbox.py)\*\*\*\*
-{% endhint %}
+**`TODO:`** `Add a link to the GitHub repo`
 
 Here's the list of arguments of the `dstack.Application.checkbox()` function:
 
@@ -704,13 +660,9 @@ print(url)
 
 ![](../.gitbook/assets/ds_slider.png)
 
-{% hint style="success" %}
-**`Live Demo:`** [**`https://dstack.cloud/gallery/controls/slider`**](https://dstack.cloud/gallery/controls/slider)**\`\`**
-{% endhint %}
+**`TODO:`** `Add a link to the gallery`
 
-{% hint style="info" %}
-**Source Code:** [**https://github.com/dstackai/dstack-examples/blob/master/controls/slider.py**](https://github.com/dstackai/dstack-examples/blob/master/controls/slider.py)\*\*\*\*
-{% endhint %}
+**`TODO:`** `Add a link to the GitHub repo`
 
 Here's the list of arguments of the `dstack.Application.slider()` function:
 
@@ -865,13 +817,9 @@ Now, if you upload a CSV file, you'll see the following:
 
 ![](../.gitbook/assets/ds_uploader_2.png)
 
-{% hint style="success" %}
-**`Live Demo:`** [**`https://dstack.cloud/gallery/controls/uploader`**](https://dstack.cloud/gallery/controls/uploader)**\`\`**
-{% endhint %}
+**`TODO:`** `Add a link to the gallery`
 
-{% hint style="info" %}
-**Source Code:** [**https://github.com/dstackai/dstack-examples/blob/master/controls/uploader.py**](https://github.com/dstackai/dstack-examples/blob/master/controls/uploader.py)\*\*\*\*
-{% endhint %}
+**`TODO:`** `Add a link to the GitHub repo`
 
 Here's the list of arguments of the `dstack.Application.uploader()` function:
 
@@ -993,14 +941,6 @@ print(url)
 
 ![](../.gitbook/assets/ds_markdown_1.png)
 
-{% hint style="success" %}
-**`Live Demo:`** [**`https://dstack.cloud/gallery/controls/input`**](https://dstack.cloud/gallery/controls/input)**\`\`**
-{% endhint %}
-
-{% hint style="info" %}
-**Source Code:** [**https://github.com/dstackai/dstack-examples/blob/master/controls/input.py**](https://github.com/dstackai/dstack-examples/blob/master/controls/input.py)\*\*\*\*
-{% endhint %}
-
 Above, you see a `Markdown` control that displays the text based on the text specified in another control. Below is a more simple example, where the `Markdown` control just displays a static text:
 
 ```python
@@ -1017,14 +957,6 @@ print(url)
 ```
 
 ![](../.gitbook/assets/ds_markdown_2.png)
-
-{% hint style="success" %}
-**`Live Demo:`** [**`https://dstack.cloud/gallery/markdown`**](https://dstack.cloud/gallery/markdown)**\`\`**
-{% endhint %}
-
-{% hint style="info" %}
-**Source Code:** [**https://github.com/dstackai/dstack-examples/blob/master/markdown/app.py**](https://github.com/dstackai/dstack-examples/blob/master/markdown/app.py)\*\*\*\*
-{% endhint %}
 
 Here's the list of arguments of the `dstack.Application.markdown()` function:
 
@@ -1235,8 +1167,4 @@ Here's the list of arguments of the `dstack.Application.output()` function:
     </tr>
   </tbody>
 </table>
-
-Find more details on how to use outputs by following the tutorial on building an application with multiple outputs:
-
-{% page-ref page="../tutorials/simple-application-with-multiple-outputs.md" %}
 
