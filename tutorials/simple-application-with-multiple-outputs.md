@@ -111,11 +111,13 @@ print(url)
 
 Now, if you run the code and open the application, you'll see the following:
 
-**`TODO:`** `Add screenshot`
+![](../.gitbook/assets/ds_outputs.png)
 
-**`TODO:`** `Add a link to the gallery`
+{% hint style="success" %}
+**Live Demo:** [**https://dstack.cloud/gallery/tutorials/multiple\_tabs**](https://dstack.cloud/gallery/tutorials/multiple_tabs)\*\*\*\*
+{% endhint %}
 
-**`TODO:`** `Add a link to the GitHub repo`
-
-**`TODO:`** `Guide step by step`
+{% hint style="info" %}
+**Source Code:** [**https://github.com/dstackai/dstack-examples/blob/master/tutorials/multiple\_outputs.py**](https://github.com/dstackai/dstack-examples/blob/master/tutorials/multiple_outputs.py)\*\*\*\*
+{% endhint %}
 
