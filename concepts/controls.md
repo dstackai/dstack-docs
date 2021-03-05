@@ -195,7 +195,7 @@ Now, if you open the application, you'll see the following:
 
 ### Require Apply
 
-By default, the application triggers the application update \(including updating outputs\) every time the user changes anything. If you'd like any control to update only if the user clicks `Apply`, you can set `requires_apply=True` when you create a control:
+By default, the application triggers the application update \(including updating outputs\) every time the user changes anything. If you'd like any control to update only if the user clicks `Apply`, you can set `require_apply=True` when you create a control:
 
 ```python
 # An output that shows companies based on the selected country
@@ -1086,7 +1086,7 @@ Here's the list of arguments of the `dstack.Application.markdown()` function:
       <td style="text-align:left">No</td>
     </tr>
     <tr>
-      <td style="text-align:left"><code>requires_apply</code>
+      <td style="text-align:left"><code>require_apply</code>
       </td>
       <td style="text-align:left"><code>bool</code>
       </td>
@@ -1206,7 +1206,7 @@ Here's the list of arguments of the `dstack.Application.output()` function:
       <td style="text-align:left">No</td>
     </tr>
     <tr>
-      <td style="text-align:left"><code>requires_apply</code>
+      <td style="text-align:left"><code>require_apply</code>
       </td>
       <td style="text-align:left"><code>bool</code>
       </td>
