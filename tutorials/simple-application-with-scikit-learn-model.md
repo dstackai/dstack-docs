@@ -83,9 +83,15 @@ print(url)
 
 If we run this code, it will train the model and push it to `dstack`. In the output, you'll see its URL which you can use to view the model via the interface. If you click it, you'll see the following:
 
-**`TODO:`** `Add a screenshot`
+![](../.gitbook/assets/ds_model_pipeline.png)
 
-**`TODO:`** `Add a link to cloud`
+{% hint style="success" %}
+**Live Demo:** [**https://dstack.cloud/gallery/tutorials/sklearn\_model**](https://dstack.cloud/gallery/tutorials/sklearn_model)\*\*\*\*
+{% endhint %}
+
+{% hint style="info" %}
+**Source Code:** [**https://github.com/dstackai/dstack-examples/blob/master/sklearn/model.py**](https://github.com/dstackai/dstack-examples/blob/master/sklearn/model.py)\*\*\*\*
+{% endhint %}
 
 Now, this model is stored with `dstack`'s registry and can be pulled from any application. Let's look at an example of an application that uses this model:
 
@@ -145,13 +151,17 @@ print(url)
 
 Now, if we run this code, and open the URL from the output, we'll see the following:
 
-**`TODO:`** `Add a screenshot`
+![](../.gitbook/assets/ds_app_pipeline.png)
 
-**`TODO:`** `Add a link to cloud`
+{% hint style="success" %}
+**Live Demo:** [**https://dstack.cloud/gallery/sklearn**](https://dstack.cloud/gallery/sklearn)\*\*\*\*
+{% endhint %}
+
+{% hint style="info" %}
+**Source Code:** [**https://github.com/dstackai/dstack-examples/blob/master/sklearn/app.py**](https://github.com/dstackai/dstack-examples/blob/master/sklearn/app.py)\*\*\*\*
+{% endhint %}
 
 Now, if you push another version of the model using the same name, the application will immediately switch to the new version of the model.
-
-**`TODO:`** `Add a link to GitHub repo`
 
 `dstack` supports `Tensorflow`, `PyTorch`, or `Scikit-Learn` models.
 
