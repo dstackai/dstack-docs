@@ -34,13 +34,9 @@ If you open the application, you'll see the following:
 
 ![](../.gitbook/assets/ds_tabs.png)
 
-{% hint style="success" %}
-**`Live Demo:`** [**`https://dstack.cloud/gallery/tabs`**](https://dstack.cloud/gallery/tabs)**\`\`**
-{% endhint %}
+**`TODO:`** `Add a link to gallery`
 
-{% hint style="info" %}
-**Source Code:** [**https://github.com/dstackai/dstack-examples/blob/master/tabs/app.py**](https://github.com/dstackai/dstack-examples/blob/master/tabs/app.py)\*\*\*\*
-{% endhint %}
+**`TODO:`** `Add a link ot the GitHub repo`
 
 When you invoke the `dstack.Application.tab()` function, you get an instance of `dstack.ApplicationBase` which has pretty much all functions that `dstack.Application` has so you can change its layout, and add controls.
 

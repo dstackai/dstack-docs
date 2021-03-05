@@ -39,9 +39,13 @@ Now, if you run it and open the application, you'll see the following while the 
 
 ![](../.gitbook/assets/ds_tqdm.png)
 
-**`TODO:`** `Add a link to the gallery`
+{% hint style="success" %}
+**`Live Demo:`** [**`https://dstack.cloud/gallery/tqdm`**](https://dstack.cloud/gallery/tqdm)**\`\`**
+{% endhint %}
 
-**`TODO:`** `Add a link to the GitHub repo`
+{% hint style="info" %}
+**Source Code:** [**https://github.com/dstackai/dstack-examples/blob/master/progress/app.py**](https://github.com/dstackai/dstack-examples/blob/master/progress/app.py)\*\*\*\*
+{% endhint %}
 
 
 
