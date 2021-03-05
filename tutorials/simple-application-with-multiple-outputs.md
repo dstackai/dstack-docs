@@ -1,3 +1,9 @@
+---
+description: >-
+  Learn how to use outputs by following the tutorial on building an application
+  with multiple outputs.
+---
+
 # Simple Application with Multiple Outputs
 
 In this tutorial, we'll build an application that loads CSV data from a URL, and offers an interactive dashboard that lets the user browse through the data. 

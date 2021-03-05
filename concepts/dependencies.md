@@ -36,9 +36,11 @@ Be careful, when you run the script that deploys a dstack application with depen
 
 When you run the application the first time, `dstack` makes sure all dependencies are installed on the first run.
 
-**`TODO:`** `Add a screenshot`
+![](../.gitbook/assets/ds_faker.png)
 
-**`TODO:`** `Add a link to gallery`
+{% hint style="success" %}
+**Live Demo:** [**https://dstack.cloud/gallery/faker**](https://dstack.cloud/gallery/faker)\*\*\*\*
+{% endhint %}
 
 {% hint style="info" %}
 **Source Code:** [**https://github.com/dstackai/dstack-examples/tree/master/depends**](https://github.com/dstackai/dstack-examples/tree/master/depends)\*\*\*\*
