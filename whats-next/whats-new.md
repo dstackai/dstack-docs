@@ -11,6 +11,10 @@
 * Controls now have the attribute `visible` that can be changed by the handler.
 * Controls now have the attribute `placeholder`. Its value is displayed if the control has no selected value. It's useful for `Input` or `Select` as a more compact alternative to `label`.
 
+{% hint style="warning" %}
+Note, the update is not backward compatible. If you update to the new version, you'll have to redeploy your applications using the new API. Have any problems or questions? Please write us to on the [Discord channel](https://discord.com/invite/8xfhEYa).
+{% endhint %}
+
 ### dstack 0.6.4, March 2021
 
 * Bugfixes
