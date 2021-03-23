@@ -10,6 +10,7 @@
 * Controls can now take as much vertical space as needed. This is especially convenient for `Markdown` controls \(e.g. if the text is long and `colspan` and `rowspan` are rather small\).
 * Controls now have the attribute `visible` that can be changed by the handler.
 * Controls now have the attribute `placeholder`. Its value is displayed if the control has no selected value. It's useful for `Input` or `Select` as a more compact alternative to `label`.
+* Starting dstack is now easier: write `dstack go` instead of `dstack server start`.
 
 {% hint style="warning" %}
 Note, the update is not backward compatible. If you update to the new version, you'll have to redeploy your applications using the new API. Have any problems or questions? Please write us to on the [Discord channel](https://discord.com/invite/8xfhEYa).
