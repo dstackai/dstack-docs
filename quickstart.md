@@ -5,14 +5,14 @@
 Installing and running `dstack` is very easy:
 
 ```bash
-pip install dstack==0.6.5rc1
-dstack server start
+pip install dstack==0.6.5rc3
+dstack go
 ```
 
 If you run it for the first time, it may take a while. Once it's done, you'll see the following output:
 
 ```bash
-$ dstack server start
+$ dstack go
 To access the application, open this URL in the browser: http://localhost:8080/auth/verify?user=dstack&code=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx&next=/
 
 The default profile in "~/.dstack/config.yaml" is already configured. You are welcome to push your data using Python or R packages.
